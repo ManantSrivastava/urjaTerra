@@ -59,6 +59,15 @@ interface EarthSyncContextType {
 const EarthSyncContext = createContext<EarthSyncContextType | undefined>(undefined);
 
 const STORAGE_KEYS = {
+  PICKUPS: 'urjaterra_pickups_v2',
+  ENQUIRIES: 'urjaterra_solar_enquiries_v2',
+  ACTIVITIES: 'urjaterra_activities_v2',
+  PROFILE: 'urjaterra_profile_v2',
+  REDEEMED: 'urjaterra_redeemed_v2',
+  INITIALIZED: 'urjaterra_initialized_v2',
+};
+
+const LEGACY_STORAGE_KEYS = {
   PICKUPS: 'earthsync_pickups_v2',
   ENQUIRIES: 'earthsync_solar_enquiries_v2',
   ACTIVITIES: 'earthsync_activities_v2',
@@ -103,7 +112,7 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
   // Safe localStorage Hydration
   useEffect(() => {
     try {
-      const storedInit = localStorage.getItem(STORAGE_KEYS.INITIALIZED);
+      const storedInit = localStorage.getItem(STORAGE_KEYS.INITIALIZED) || localStorage.getItem(LEGACY_STORAGE_KEYS.INITIALIZED);
       
       if (!storedInit) {
         // First run: Initialize clean without fake demo records
@@ -120,11 +129,11 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
         setUserProfile(DEFAULT_PROFILE);
         setRedeemedRewards([]);
       } else {
-        const storedPickups = localStorage.getItem(STORAGE_KEYS.PICKUPS);
-        const storedEnquiries = localStorage.getItem(STORAGE_KEYS.ENQUIRIES);
-        const storedActivities = localStorage.getItem(STORAGE_KEYS.ACTIVITIES);
-        const storedProfile = localStorage.getItem(STORAGE_KEYS.PROFILE);
-        const storedRedeemed = localStorage.getItem(STORAGE_KEYS.REDEEMED);
+        const storedPickups = localStorage.getItem(STORAGE_KEYS.PICKUPS) || localStorage.getItem(LEGACY_STORAGE_KEYS.PICKUPS);
+        const storedEnquiries = localStorage.getItem(STORAGE_KEYS.ENQUIRIES) || localStorage.getItem(LEGACY_STORAGE_KEYS.ENQUIRIES);
+        const storedActivities = localStorage.getItem(STORAGE_KEYS.ACTIVITIES) || localStorage.getItem(LEGACY_STORAGE_KEYS.ACTIVITIES);
+        const storedProfile = localStorage.getItem(STORAGE_KEYS.PROFILE) || localStorage.getItem(LEGACY_STORAGE_KEYS.PROFILE);
+        const storedRedeemed = localStorage.getItem(STORAGE_KEYS.REDEEMED) || localStorage.getItem(LEGACY_STORAGE_KEYS.REDEEMED);
 
         if (storedPickups) setPickups(JSON.parse(storedPickups));
         if (storedEnquiries) setSolarEnquiries(JSON.parse(storedEnquiries));
@@ -133,7 +142,7 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
         if (storedRedeemed) setRedeemedRewards(JSON.parse(storedRedeemed));
       }
     } catch (err) {
-      console.warn('LocalStorage access warning in EarthSyncContext:', err);
+      console.warn('LocalStorage access warning in urjaTerraContext:', err);
       setPickups([]);
       setSolarEnquiries([]);
       setActivities([]);
@@ -541,3 +550,7 @@ export const useEarthSync = () => {
   }
   return context;
 };
+
+// urjaTerra aliases
+export const UrjaTerraProvider = EarthSyncProvider;
+export const useUrjaTerra = useEarthSync;

@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { ShieldCheck, Database, Lock, Eye, AlertTriangle, ArrowLeft } from 'lucide-react';
 
 export const metadata = {
-  title: 'Privacy Policy | EarthSync CleanTech',
-  description: 'Data handling, browser storage practices, and academic prototype privacy disclosures for EarthSync.',
+  title: 'Privacy Policy | urjaTerra CleanTech',
+  description: 'Data handling, browser storage practices, and academic prototype privacy disclosures for urjaTerra.',
 };
 
 export default function PrivacyPolicyPage() {
@@ -31,7 +31,7 @@ export default function PrivacyPolicyPage() {
           Privacy Policy
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl leading-relaxed">
-          Effective date: October 2026. This privacy statement explains how EarthSync handles user data, client-side persistence, and operational requests.
+          Effective date: October 2026. This privacy statement explains how urjaTerra handles user data, client-side persistence, and operational requests.
         </p>
       </div>
 
@@ -44,7 +44,7 @@ export default function PrivacyPolicyPage() {
               Privacy First Architecture
             </span>
             <p className="text-emerald-900/80 leading-relaxed">
-              EarthSync prioritizes user privacy. Operational records and profile preferences are persisted client-side in browser storage. No sensitive financial credentials or government identity records are collected.
+              urjaTerra prioritizes user privacy. Operational records and profile preferences are persisted client-side in browser storage. No sensitive financial credentials or government identity records are collected.
             </p>
           </div>
         </div>
@@ -75,7 +75,7 @@ export default function PrivacyPolicyPage() {
             <span>2. Information We Collect</span>
           </h2>
           <p>
-            When utilizing interactive forms on EarthSync, you may voluntarily submit the following operational parameters:
+            When utilizing interactive forms on urjaTerra, you may voluntarily submit the following operational parameters:
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
             <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
@@ -100,7 +100,7 @@ export default function PrivacyPolicyPage() {
             <span>3. Third-Party Trackers and Analytics</span>
           </h2>
           <p>
-            EarthSync does not use behavioral advertising trackers, third-party remarketing pixels, or third-party cookie syndication networks. 
+            urjaTerra does not use behavioral advertising trackers, third-party remarketing pixels, or third-party cookie syndication networks. 
             All SVG chart visualizers, solar calculations, and GreenPoints reward logic execute natively in client-side TypeScript code.
           </p>
         </div>
@@ -111,7 +111,7 @@ export default function PrivacyPolicyPage() {
             4. Transition to Production
           </h2>
           <p>
-            Prior to full commercial deployment and public onboarding, EarthSync will implement:
+            Prior to full commercial deployment and public onboarding, urjaTerra will implement:
           </p>
           <ul className="list-disc pl-5 space-y-1.5 text-slate-600">
             <li>End-to-end TLS 1.3 encryption across all network calls.</li>
@@ -125,8 +125,8 @@ export default function PrivacyPolicyPage() {
         <div className="bg-slate-50 rounded-2xl border border-slate-200 p-6 text-xs text-slate-500">
           <h3 className="font-semibold text-slate-800 text-sm mb-1">Inquiries and Contact</h3>
           <p>
-            For questions regarding this policy or academic evaluation of the project, contact the EarthSync project team at{' '}
-            <span className="font-mono text-emerald-800 font-medium">project-earthsync@college.edu</span>.
+            For questions regarding this policy or academic evaluation of the project, contact the urjaTerra project team at{' '}
+            <span className="font-mono text-emerald-800 font-medium">project-urjaterra@college.edu</span>.
           </p>
         </div>
       </div>

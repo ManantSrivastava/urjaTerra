@@ -1,4 +1,4 @@
-# EarthSync
+# urjaTerra
 > **Integrated Urban CleanTech Operating System**  
 > *Combining Smart Waste Circularity with SolarSaathi Decentralized Energy*  
 > **Course Project:** Essentials of Business Management (BM-2026)
@@ -6,12 +6,12 @@
 ---
 
 ## Executive Summary
-**EarthSync** is a unified CleanTech platform engineered for modern urban environments, academic institutions, and commercial facilities. It links two traditionally isolated sustainability verticals into a single cohesive platform:
+**urjaTerra** is a unified CleanTech platform engineered for modern urban environments, academic institutions, and commercial facilities. It links two traditionally isolated sustainability verticals into a single cohesive platform:
 
 1. **Smart Waste Management:** On-demand segregated collection across 6 recyclable fractions with a **GreenPoints** circular incentive protocol.
 2. **SolarSaathi:** An open, data-driven rooftop solar feasibility engine that calculates suggested capacity, turnkey capital costs, and financial payback periods, connecting users with qualified local installers.
 
-EarthSync complements municipal solid waste collection for specialized recyclable streams (dry recyclables, e-waste, sorted paper/cardboard/plastics). It does not replace statutory municipal sanitation authorities or claim unverified public department integrations.
+urjaTerra complements municipal solid waste collection for specialized recyclable streams (dry recyclables, e-waste, sorted paper/cardboard/plastics). It does not replace statutory municipal sanitation authorities or claim unverified public department integrations.
 
 ---
 
@@ -101,7 +101,7 @@ EarthSync complements municipal solid waste collection for specialized recyclabl
 ### Installation Steps
 1. Clone or open the repository directory:
    ```bash
-   cd EarthSync
+   cd urjaTerra
    ```
 
 2. Install dependencies:
@@ -134,7 +134,7 @@ npm run start
 ---
 
 ## Demonstration Guide for Evaluators
-Follow these steps to demonstrate the end-to-end functionality of EarthSync:
+Follow these steps to demonstrate the end-to-end functionality of urjaTerra:
 
 1. **Dashboard Overview (`/`):**
    - Review the executive welcome banner, summary KPI cards, and recent activity feed.
@@ -182,7 +182,7 @@ Follow these steps to demonstrate the end-to-end functionality of EarthSync:
 
 ## Prototype Scope, Assumptions and Limitations
 - **Local Persistence:** Data is stored client-side in the browser's `localStorage`. Clearing browser cookies or cache will reset the application to default baseline data.
-- **Municipal Waste Complementarity:** EarthSync coordinates specialized recyclable collections and does not duplicate municipal solid waste operations.
+- **Municipal Waste Complementarity:** urjaTerra coordinates specialized recyclable collections and does not duplicate municipal solid waste operations.
 - **Computational Estimations:** Figures provided by the SolarSaathi engine are engineering approximations for feasibility planning based on regional irradiance averages (4.5 to 5.8 peak sun hours/day, 78% PR). Actual system output depends on specific site shading, panel tier selection, and local DISCOM net-metering policies.
 - **Subsidy Disclaimers:** Central financial assistance calculations follow PM Surya Ghar guidelines and are subject to MNRE inspection and national portal DBT verification.
 - **GreenPoints Policy:** GreenPoints are simulated circular incentives and carry no monetary cash exchange value.
@@ -192,6 +192,6 @@ Follow these steps to demonstrate the end-to-end functionality of EarthSync:
 
 ## Academic Course Information
 - **Course:** Essentials of Business Management
-- **Project Name:** EarthSync CleanTech Platform
+- **Project Name:** urjaTerra CleanTech Platform
 - **Academic Term:** Semester 3
 - **Version:** 1.0 MVP

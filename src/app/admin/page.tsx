@@ -28,7 +28,7 @@ import {
 import { WASTE_CATEGORIES } from '@/data/constants';
 
 const ADMIN_PASSKEY = 'earthadmin2026';
-const SESSION_AUTH_KEY = 'earthsync_admin_auth_v2';
+const SESSION_AUTH_KEY = 'urjaterra_admin_auth_v2';
 
 export default function AdminPage() {
   const { 
@@ -92,8 +92,10 @@ export default function AdminPage() {
       setIsAuthenticated(false);
       setPasskeyInput('');
     };
+    window.addEventListener('urjaterra_admin_logout', onAdminLogout);
     window.addEventListener('earthsync_admin_logout', onAdminLogout);
     return () => {
+      window.removeEventListener('urjaterra_admin_logout', onAdminLogout);
       window.removeEventListener('earthsync_admin_logout', onAdminLogout);
     };
   }, []);
@@ -108,7 +110,7 @@ export default function AdminPage() {
       } catch {
         // ignore
       }
-      showToast('success', 'Admin Access Granted', 'Welcome to the EarthSync Operations Console.');
+      showToast('success', 'Admin Access Granted', 'Welcome to the urjaTerra Operations Console.');
     } else {
       setAuthError('Invalid Admin Passkey. Please try again.');
     }
@@ -254,7 +256,7 @@ export default function AdminPage() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `earthsync_pickups_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute('download', `urjaterra_pickups_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -287,7 +289,7 @@ export default function AdminPage() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `earthsync_solar_leads_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute('download', `urjaterra_solar_leads_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -305,7 +307,7 @@ export default function AdminPage() {
     const jsonStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data, null, 2));
     const link = document.createElement('a');
     link.setAttribute('href', jsonStr);
-    link.setAttribute('download', `earthsync_full_backup_${new Date().toISOString().slice(0, 10)}.json`);
+    link.setAttribute('download', `urjaterra_full_backup_${new Date().toISOString().slice(0, 10)}.json`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -404,7 +406,7 @@ export default function AdminPage() {
             </div>
 
             <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-              EarthSync Admin Portal
+              urjaTerra Admin Portal
             </h1>
             <p className="text-xs sm:text-sm text-emerald-100/70 max-w-2xl leading-relaxed">
               Operational dashboard for recyclable dry waste dispatch, calibrated weight settlement, rooftop solar feasibility pipeline, and GreenPoints ledger auditing.
@@ -1218,7 +1220,7 @@ export default function AdminPage() {
         </div>
         <p className="leading-relaxed">
           Recycling aggregation is handled through authorized private scrap aggregators and authorized CPCB recycling facilities. 
-          EarthSync does not replace local municipal daily solid waste collection and operates independently for separated dry recyclables and rooftop solar installations.
+          urjaTerra does not replace local municipal daily solid waste collection and operates independently for separated dry recyclables and rooftop solar installations.
         </p>
       </div>
 

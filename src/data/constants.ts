@@ -125,12 +125,12 @@ export const REWARD_ITEMS: RewardItem[] = [
   },
   {
     id: 'rw-4',
-    title: 'EarthSync Recycled Stainless Steel Bottle',
+    title: 'urjaTerra Recycled Stainless Steel Bottle',
     description: 'Double-walled insulated 750ml flask made from 90% post-consumer recycled steel.',
     pointsCost: 280,
     category: 'voucher',
     badge: 'Zero-Waste Gear',
-    partner: 'EarthSync Merch',
+    partner: 'urjaTerra Merch',
   },
   {
     id: 'rw-5',

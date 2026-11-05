@@ -50,7 +50,7 @@ export default function ProfilePage() {
             <User className="w-6 h-6 text-emerald-700" />
           </div>
           <h2 className="text-xl sm:text-2xl font-bold text-stone-900 tracking-tight">
-            Complete your profile to personalize your EarthSync experience.
+            Complete your profile to personalize your urjaTerra experience.
           </h2>
           <p className="text-xs sm:text-sm text-stone-600 mt-2 max-w-md mx-auto leading-relaxed">
             Create an account or sign in to track recyclable waste collections, log rooftop solar estimates, and earn GreenPoints.
@@ -83,7 +83,7 @@ export default function ProfilePage() {
               <div>
                 <div className="flex items-center gap-2">
                   <h1 className="text-xl sm:text-2xl font-bold text-stone-900">
-                    {userProfile.name || 'EarthSync Member'}
+                    {userProfile.name || 'urjaTerra Member'}
                   </h1>
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200">
                     {userProfile.greenPointsBalance > 0 ? 'Eco Champion' : 'Active Member'}
@@ -313,7 +313,7 @@ export default function ProfilePage() {
           </div>
 
           <div className="pt-4 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
-            <span>EarthSync CleanTech Platform</span>
+            <span>urjaTerra CleanTech Platform</span>
             <span className="font-mono text-emerald-800 font-semibold">v1.0</span>
           </div>
         </div>

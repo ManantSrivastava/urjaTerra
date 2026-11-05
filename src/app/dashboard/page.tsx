@@ -217,7 +217,7 @@ export default function DashboardPage() {
             </div>
 
             <p className="text-xs sm:text-sm text-stone-600 leading-relaxed mt-2">
-              EarthSync coordinates on-demand pickups for sorted plastic, paper, metal, glass, e-waste, and organics. Every kilogram collected is weighed, verified, and rewarded directly with GreenPoints.
+              urjaTerra coordinates on-demand pickups for sorted plastic, paper, metal, glass, e-waste, and organics. Every kilogram collected is weighed, verified, and rewarded directly with GreenPoints.
             </p>
 
             {/* Quick Status breakdown */}

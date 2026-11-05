@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { FileText, Scale, Sun, AlertTriangle, ArrowLeft, CheckCircle2 } from 'lucide-react';
 
 export const metadata = {
-  title: 'Terms of Service | EarthSync CleanTech',
-  description: 'Operating guidelines, calculation disclaimers, and service scope for the EarthSync prototype platform.',
+  title: 'Terms of Service | urjaTerra CleanTech',
+  description: 'Operating guidelines, calculation disclaimers, and service scope for the urjaTerra prototype platform.',
 };
 
 export default function TermsPage() {
@@ -31,7 +31,7 @@ export default function TermsPage() {
           Terms of Service
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl leading-relaxed">
-          Effective date: October 2026. Please read these terms governing your use of the EarthSync platform and clean energy services.
+          Effective date: October 2026. Please read these terms governing your use of the urjaTerra platform and clean energy services.
         </p>
       </div>
 
@@ -44,7 +44,7 @@ export default function TermsPage() {
               Platform & Regulatory Disclosures
             </span>
             <p className="text-amber-800 leading-relaxed">
-              EarthSync provides specialized resource management coordination and rooftop solar feasibility modeling. Mathematical models are provided as advisory tools to assist residential and community planning.
+              urjaTerra provides specialized resource management coordination and rooftop solar feasibility modeling. Mathematical models are provided as advisory tools to assist residential and community planning.
             </p>
           </div>
         </div>
@@ -59,12 +59,12 @@ export default function TermsPage() {
             <span>1. Municipal Waste Complementarity</span>
           </h2>
           <p>
-            EarthSync coordinates specialized dry recyclable collection streams (paper, plastics, scrap metals, clean glass containers, and eligible e-waste).
+            urjaTerra coordinates specialized dry recyclable collection streams (paper, plastics, scrap metals, clean glass containers, and eligible e-waste).
           </p>
           <ul className="list-disc pl-5 space-y-1.5 text-slate-600">
-            <li>EarthSync does not replace or duplicate primary municipal solid waste collection services or statutory door-to-door sanitary services.</li>
+            <li>urjaTerra does not replace or duplicate primary municipal solid waste collection services or statutory door-to-door sanitary services.</li>
             <li>We do not handle biomedical waste, hazardous chemical residues, construction debris, or unsorted wet refuse.</li>
-            <li>EarthSync makes no claim of statutory municipal authority or official public department endorsement unless explicitly verified.</li>
+            <li>urjaTerra makes no claim of statutory municipal authority or official public department endorsement unless explicitly verified.</li>
           </ul>
         </div>
 
@@ -95,7 +95,7 @@ export default function TermsPage() {
             GreenPoints are simulated environmental achievement tokens credited exclusively when a dry waste collection request is physically verified and marked as Collected.
           </p>
           <ul className="list-disc pl-5 space-y-1.5 text-slate-600">
-            <li>GreenPoints have no monetary cash value and cannot be redeemed for fiat currency or transferred outside the EarthSync platform.</li>
+            <li>GreenPoints have no monetary cash value and cannot be redeemed for fiat currency or transferred outside the urjaTerra platform.</li>
             <li>Partner reward vouchers and community perks are redeemable through participating eco-partners subject to partner terms.</li>
             <li>The system enforces strict single-crediting logic to prevent duplicate point allocations for the same batch.</li>
           </ul>
@@ -116,7 +116,7 @@ export default function TermsPage() {
         <div className="bg-slate-50 rounded-2xl border border-slate-200 p-6 text-xs text-slate-500">
           <h3 className="font-semibold text-slate-800 text-sm mb-1">Academic Project Notice</h3>
           <p>
-            EarthSync is created by students as part of the Essentials of Business Management coursework. 
+            urjaTerra is created by students as part of the Essentials of Business Management coursework. 
             For faculty verification and academic grading questions, contact the student project development team.
           </p>
         </div>

@@ -32,7 +32,7 @@ export default function HomePage() {
             <source srcSet="/hero-landscape-clean.webp" type="image/webp" />
             <img
               src="/hero-landscape-clean.png"
-              alt="EarthSync renewable energy landscape"
+              alt="urjaTerra renewable energy landscape"
               className="w-full h-full object-cover object-bottom md:object-fill select-none pointer-events-none"
               draggable={false}
             />
@@ -199,7 +199,7 @@ export default function HomePage() {
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#17231E] tracking-tight">
-            Select an EarthSync Service
+            Select an urjaTerra Service
           </h2>
           <p className="text-sm text-[#65736B]">
             Choose between scheduled recyclable waste collection or precision rooftop solar potential modeling.
@@ -347,7 +347,7 @@ export default function HomePage() {
       <section id="about" className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-12">
         <div className="text-center max-w-2xl mx-auto space-y-2">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#17231E] tracking-tight">
-            How EarthSync Works
+            How urjaTerra Works
           </h2>
           <p className="text-sm text-[#65736B]">
             A unified interface for community circularity and decentralized rooftop clean energy.
@@ -477,7 +477,7 @@ export default function HomePage() {
             </h2>
 
             <p className="text-sm text-[#4E5D54] leading-relaxed">
-              Traditional sustainability platforms isolate waste management from clean energy adoption. EarthSync bridges localized recycling incentives with residential rooftop solar adoption within a singular civic ecosystem.
+              Traditional sustainability platforms isolate waste management from clean energy adoption. urjaTerra bridges localized recycling incentives with residential rooftop solar adoption within a singular civic ecosystem.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">

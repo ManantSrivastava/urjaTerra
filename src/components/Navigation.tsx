@@ -27,10 +27,12 @@ export const Navigation: React.FC = () => {
 
   const handleAdminLogout = () => {
     try {
+      sessionStorage.removeItem('urjaterra_admin_auth_v2');
       sessionStorage.removeItem('earthsync_admin_auth_v2');
     } catch {
       // ignore
     }
+    window.dispatchEvent(new Event('urjaterra_admin_logout'));
     window.dispatchEvent(new Event('earthsync_admin_logout'));
     window.location.reload();
   };
@@ -54,13 +56,13 @@ export const Navigation: React.FC = () => {
       <header className="sticky top-0 z-50 bg-[#F8FAF7]/95 backdrop-blur-md text-[#17231E]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
           
-          {/* Left: EarthSync Logo & Language selector */}
+          {/* Left: urjaTerra Logo & Language selector */}
           <div className="flex items-center gap-3 sm:gap-4 shrink-0">
             <Link href="/" className="flex items-center gap-2 group shrink-0">
               {/* Clean tilted green leaf icon from design */}
               <Leaf className="w-6 h-6 text-[#00A86B] fill-[#00A86B] transition-transform group-hover:scale-105" />
               <span className="text-xl font-bold tracking-tight text-[#063D2E]">
-                Earth<span className="text-[#00A86B]">Sync</span>
+                urja<span className="text-[#00A86B]">Terra</span>
               </span>
             </Link>
 

@@ -7,9 +7,9 @@ import { ToastContainer } from '@/components/ToastContainer';
 import { Leaf, ShieldCheck, Lock } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'EarthSync — Waste Less. Power More.',
+  title: 'urjaTerra — Waste Less. Power More.',
   description:
-    'EarthSync brings smarter recyclable waste management and rooftop solar estimation together in one simple platform.',
+    'urjaTerra brings smarter recyclable waste management and rooftop solar estimation together in one simple platform.',
   keywords: [
     'CleanTech',
     'Smart Waste Management',
@@ -52,7 +52,7 @@ export default function RootLayout({
                   </div>
                   <div>
                     <span className="font-bold text-base text-[#17231E] tracking-tight">
-                      Earth<span className="text-[#00B884]">Sync</span>
+                      urja<span className="text-[#00B884]">Terra</span>
                     </span>
                     <p className="text-[11px] text-[#65736B]">
                       Smart Waste Management & Rooftop Solar Estimator
@@ -100,7 +100,7 @@ export default function RootLayout({
                   </span>
                 </div>
                 <p>
-                  © 2026 EarthSync. Not affiliated with or replacing municipal daily sanitation services.
+                  © 2026 urjaTerra. Not affiliated with or replacing municipal daily sanitation services.
                 </p>
               </div>
             </div>

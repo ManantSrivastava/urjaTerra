@@ -60,7 +60,7 @@ export default function RegisterPage() {
           <Link href="/" className="inline-flex items-center gap-2 group">
             <Leaf className="w-8 h-8 text-[#00A86B] fill-[#00A86B] transition-transform group-hover:scale-105" />
             <span className="text-2xl font-bold tracking-tight text-[#063D2E]">
-              Earth<span className="text-[#00A86B]">Sync</span>
+              urja<span className="text-[#00A86B]">Terra</span>
             </span>
           </Link>
           <h1 className="text-2xl font-bold tracking-tight text-[#17231E]">
