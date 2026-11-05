@@ -13,7 +13,8 @@ import {
   ShieldAlert, 
   ArrowRight,
   UserCheck,
-  Sparkles
+  Sparkles,
+  Share2
 } from 'lucide-react';
 
 export default function ProfilePage() {
@@ -132,6 +133,35 @@ export default function ProfilePage() {
               <span>{t.profile.emptyNotice}</span>
             </div>
           )}
+
+          {/* Refer & Earn Quick Banner */}
+          <div className="mt-5 p-4 rounded-xl bg-gradient-to-r from-[#063D2E] to-[#0A4D3B] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xs">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#00B884]/20 border border-[#00B884]/30 flex items-center justify-center shrink-0">
+                <Share2 className="w-5 h-5 text-[#00B884]" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                  <span>{t.refer.title}</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#FFB800] text-[#063D2E] font-bold">
+                    +100 pts
+                  </span>
+                </h3>
+                <p className="text-xs text-stone-200 mt-0.5">
+                  {language === 'Hi'
+                    ? 'मित्रों को आमंत्रित करें और उनके पहले कचरा पिकअप पर 100 ग्रीनपॉइंट्स कमाएं!'
+                    : 'Invite friends and earn 100 GreenPoints when they complete their first verified pickup!'}
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/refer"
+              className="px-4 py-2 rounded-lg bg-[#00B884] hover:bg-[#00A374] text-[#063D2E] font-semibold text-xs transition-colors shrink-0 flex items-center gap-1.5 shadow-xs"
+            >
+              <span>{language === 'Hi' ? 'रेफरल डैशबोर्ड' : 'Referral Hub'}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
       )}
 

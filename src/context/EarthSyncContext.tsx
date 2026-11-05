@@ -8,11 +8,13 @@ import {
   ActivityItem, 
   UserProfile, 
   WasteCategoryId,
-  TimeSlot 
+  TimeSlot,
+  ReferralRecord 
 } from '@/types';
 import { 
   WASTE_CATEGORIES,
-  REWARD_ITEMS 
+  REWARD_ITEMS,
+  REFERRAL_CONFIG 
 } from '@/data/constants';
 import { Language, TRANSLATIONS, Translations } from '@/i18n/translations';
 
@@ -34,6 +36,10 @@ interface EarthSyncContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: Translations;
+  referrals: ReferralRecord[];
+  addReferral: (code: string, referredUserName: string, referredUserEmail: string) => { success: boolean; error?: string };
+  simulateFriendReferral: (friendName?: string, friendEmail?: string) => void;
+  simulateCompleteFirstCollection: (referralId: string) => void;
   addPickup: (data: {
     category: WasteCategoryId;
     quantityKg: number;
@@ -69,6 +75,7 @@ const STORAGE_KEYS = {
   PROFILE: 'urjaterra_profile_v2',
   REDEEMED: 'urjaterra_redeemed_v2',
   INITIALIZED: 'urjaterra_initialized_v2',
+  REFERRALS: 'urjaterra_referrals_v2',
 };
 
 const LEGACY_STORAGE_KEYS = {
@@ -78,6 +85,13 @@ const LEGACY_STORAGE_KEYS = {
   PROFILE: 'earthsync_profile_v2',
   REDEEMED: 'earthsync_redeemed_v2',
   INITIALIZED: 'earthsync_initialized_v2',
+  REFERRALS: 'earthsync_referrals_v2',
+};
+
+export const generateReferralCode = (seed?: string) => {
+  const clean = (seed || 'URJA').replace(/[^a-zA-Z0-9]/g, '').slice(0, 4).toUpperCase();
+  const randomSuffix = Math.random().toString(36).substring(2, 6).toUpperCase();
+  return `${REFERRAL_CONFIG.codePrefix}-${clean || 'URJA'}${randomSuffix}`;
 };
 
 const DEFAULT_PROFILE: UserProfile = {
@@ -88,6 +102,8 @@ const DEFAULT_PROFILE: UserProfile = {
   campusLocation: '',
   greenPointsBalance: 0,
   lifetimePointsEarned: 0,
+  referralCode: 'UT-URJA2026',
+  referralRewardClaimed: false,
 };
 
 export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
@@ -97,6 +113,7 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
   const [activities, setActivities] = useState<ActivityItem[]>([]);
   const [userProfile, setUserProfile] = useState<UserProfile>(DEFAULT_PROFILE);
   const [redeemedRewards, setRedeemedRewards] = useState<string[]>([]);
+  const [referrals, setReferrals] = useState<ReferralRecord[]>([]);
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [isHydrated, setIsHydrated] = useState(false);
 
@@ -131,6 +148,7 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem(STORAGE_KEYS.ACTIVITIES, JSON.stringify([]));
         localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(DEFAULT_PROFILE));
         localStorage.setItem(STORAGE_KEYS.REDEEMED, JSON.stringify([]));
+        localStorage.setItem(STORAGE_KEYS.REFERRALS, JSON.stringify([]));
         localStorage.setItem(STORAGE_KEYS.INITIALIZED, 'true');
 
         setPickups([]);
@@ -138,18 +156,28 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
         setActivities([]);
         setUserProfile(DEFAULT_PROFILE);
         setRedeemedRewards([]);
+        setReferrals([]);
       } else {
         const storedPickups = localStorage.getItem(STORAGE_KEYS.PICKUPS) || localStorage.getItem(LEGACY_STORAGE_KEYS.PICKUPS);
         const storedEnquiries = localStorage.getItem(STORAGE_KEYS.ENQUIRIES) || localStorage.getItem(LEGACY_STORAGE_KEYS.ENQUIRIES);
         const storedActivities = localStorage.getItem(STORAGE_KEYS.ACTIVITIES) || localStorage.getItem(LEGACY_STORAGE_KEYS.ACTIVITIES);
         const storedProfile = localStorage.getItem(STORAGE_KEYS.PROFILE) || localStorage.getItem(LEGACY_STORAGE_KEYS.PROFILE);
         const storedRedeemed = localStorage.getItem(STORAGE_KEYS.REDEEMED) || localStorage.getItem(LEGACY_STORAGE_KEYS.REDEEMED);
+        const storedReferrals = localStorage.getItem(STORAGE_KEYS.REFERRALS) || localStorage.getItem(LEGACY_STORAGE_KEYS.REFERRALS);
 
         if (storedPickups) setPickups(JSON.parse(storedPickups));
         if (storedEnquiries) setSolarEnquiries(JSON.parse(storedEnquiries));
         if (storedActivities) setActivities(JSON.parse(storedActivities));
-        if (storedProfile) setUserProfile(JSON.parse(storedProfile));
+        if (storedProfile) {
+          const parsed = JSON.parse(storedProfile);
+          if (!parsed.referralCode) {
+            parsed.referralCode = generateReferralCode(parsed.name || parsed.email);
+            localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(parsed));
+          }
+          setUserProfile(parsed);
+        }
         if (storedRedeemed) setRedeemedRewards(JSON.parse(storedRedeemed));
+        if (storedReferrals) setReferrals(JSON.parse(storedReferrals));
       }
     } catch (err) {
       console.warn('LocalStorage access warning in urjaTerraContext:', err);
@@ -157,12 +185,21 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
       setSolarEnquiries([]);
       setActivities([]);
       setUserProfile(DEFAULT_PROFILE);
+      setReferrals([]);
     } finally {
       setIsHydrated(true);
     }
   }, []);
 
   // Sync state helpers
+  const saveReferrals = (newReferrals: ReferralRecord[]) => {
+    setReferrals(newReferrals);
+    try {
+      localStorage.setItem(STORAGE_KEYS.REFERRALS, JSON.stringify(newReferrals));
+    } catch (e) {
+      console.error(e);
+    }
+  };
   const savePickups = (newPickups: PickupRequest[]) => {
     setPickups(newPickups);
     try {
@@ -299,26 +336,52 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
       const pointsRate = categoryDef ? categoryDef.pointsPerKg : 5;
       pointsAwarded = Math.round(finalWeight * pointsRate);
 
+      // Check if this is the user's very first verified collection pickup
+      const isFirstCollectedPickup = pickups.filter((p) => p.status === 'Collected' && p.id !== id).length === 0;
+      let welcomeBonus = 0;
+      if (isFirstCollectedPickup && userProfile.referredBy && !userProfile.referralRewardClaimed) {
+        welcomeBonus = REFERRAL_CONFIG.referredRewardPoints;
+      }
+
+      const totalEarnedThisBatch = pointsAwarded + welcomeBonus;
       const updatedProfile: UserProfile = {
         ...userProfile,
-        greenPointsBalance: userProfile.greenPointsBalance + pointsAwarded,
-        lifetimePointsEarned: userProfile.lifetimePointsEarned + pointsAwarded,
+        greenPointsBalance: userProfile.greenPointsBalance + totalEarnedThisBatch,
+        lifetimePointsEarned: userProfile.lifetimePointsEarned + totalEarnedThisBatch,
+        referralRewardClaimed: welcomeBonus > 0 ? true : userProfile.referralRewardClaimed,
       };
       saveProfile(updatedProfile);
 
-      const activity: ActivityItem = {
+      const activityList: ActivityItem[] = [];
+
+      if (welcomeBonus > 0) {
+        activityList.push({
+          id: `act-ref-${Date.now()}`,
+          title: `+${welcomeBonus} GreenPoints: Welcome Referral Bonus!`,
+          description: `Reward unlocked after your first verified recyclable waste collection.`,
+          timestamp: 'Just now',
+          type: 'referral_bonus',
+        });
+      }
+
+      activityList.push({
         id: `act-${Date.now()}`,
         title: `+${pointsAwarded} GreenPoints Awarded!`,
         description: `Verified collection of ${finalWeight} kg ${target.categoryLabel}. Thank you for recycling!`,
         timestamp: 'Just now',
         type: 'waste_collected',
-      };
-      saveActivities([activity, ...activities]);
+      });
+
+      saveActivities([...activityList, ...activities]);
 
       showToast(
         'success',
-        `Collection Verified! (+${pointsAwarded} GreenPoints)`,
-        `Awesome! ${finalWeight} kg of ${target.categoryLabel} was collected and processed.`
+        welcomeBonus > 0
+          ? `Collection Verified! (+${pointsAwarded} + ${welcomeBonus} Welcome Bonus Pts)`
+          : `Collection Verified! (+${pointsAwarded} GreenPoints)`,
+        `Awesome! ${finalWeight} kg of ${target.categoryLabel} was collected and processed.${
+          welcomeBonus > 0 ? ` +${welcomeBonus} referral bonus points unlocked!` : ''
+        }`
       );
     } else {
       showToast(
@@ -504,6 +567,118 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
     showToast('info', 'Signed Out', 'You have been signed out.');
   };
 
+  // Refer & Earn logic
+  const addReferral = (code: string, referredUserName: string, referredUserEmail: string) => {
+    const cleanCode = (code || '').trim().toUpperCase();
+    if (!cleanCode.startsWith(REFERRAL_CONFIG.codePrefix)) {
+      return { success: false, error: `Invalid referral code. Code must start with ${REFERRAL_CONFIG.codePrefix}` };
+    }
+
+    if (!referredUserName || referredUserName.trim().length < 2) {
+      return { success: false, error: 'Please enter a valid referee name.' };
+    }
+
+    if (!referredUserEmail || !referredUserEmail.includes('@')) {
+      return { success: false, error: 'Please enter a valid referee email.' };
+    }
+
+    // Prevent self-referral
+    if (userProfile.email && referredUserEmail.trim().toLowerCase() === userProfile.email.trim().toLowerCase()) {
+      return { success: false, error: 'Self-referral is not permitted. You cannot refer your own account.' };
+    }
+
+    // Check if duplicate
+    const exists = referrals.some((r) => r.referredUserEmail.toLowerCase() === referredUserEmail.trim().toLowerCase());
+    if (exists) {
+      return { success: false, error: 'A referral for this email already exists in your records.' };
+    }
+
+    const newRecord: ReferralRecord = {
+      id: `ref-${Date.now()}`,
+      referralCode: cleanCode,
+      referredUserName: referredUserName.trim(),
+      referredUserEmail: referredUserEmail.trim(),
+      date: new Date().toISOString(),
+      userStatus: 'Registered',
+      rewardStatus: 'Pending',
+      referrerPointsAwarded: 0,
+      referredPointsAwarded: 0,
+    };
+
+    saveReferrals([newRecord, ...referrals]);
+    return { success: true };
+  };
+
+  // Simulation helper to allow user / testers to test new friend referrals
+  const simulateFriendReferral = (friendName?: string, friendEmail?: string) => {
+    const defaultNames = ['Aarav Patel', 'Priya Deshmukh', 'Rohan Gupta', 'Kavita Joshi', 'Ananya Verma'];
+    const randomPick = defaultNames[Math.floor(Math.random() * defaultNames.length)];
+    const chosenName = friendName || randomPick;
+    const randomTag = Math.floor(100 + Math.random() * 899);
+    const chosenEmail = friendEmail || `${chosenName.toLowerCase().replace(/\s+/g, '.')}${randomTag}@example.com`;
+
+    const result = addReferral(userProfile.referralCode || 'UT-URJA2026', chosenName, chosenEmail);
+    if (result.success) {
+      showToast(
+        'success',
+        'Friend Invited!',
+        `${chosenName} registered using your referral code. Points will credit once their first pickup is verified.`
+      );
+    } else {
+      showToast('warning', 'Referral Notice', result.error || 'Could not add referral.');
+    }
+  };
+
+  // Simulation helper to verify a friend's first pickup and award the 100 GreenPoints to the referrer
+  const simulateCompleteFirstCollection = (referralId: string) => {
+    const target = referrals.find((r) => r.id === referralId);
+    if (!target) return;
+    if (target.rewardStatus === 'Rewarded') {
+      showToast('info', 'Already Rewarded', 'This referral reward has already been issued.');
+      return;
+    }
+
+    const points = REFERRAL_CONFIG.referrerRewardPoints;
+    const updatedReferrals: ReferralRecord[] = referrals.map((r) => {
+      if (r.id === referralId) {
+        return {
+          ...r,
+          userStatus: 'First Collection Verified',
+          rewardStatus: 'Rewarded',
+          referrerPointsAwarded: points,
+          referredPointsAwarded: REFERRAL_CONFIG.referredRewardPoints,
+          completedAt: new Date().toISOString(),
+        };
+      }
+      return r;
+    });
+    saveReferrals(updatedReferrals);
+
+    // Credit referrer
+    const updatedProfile: UserProfile = {
+      ...userProfile,
+      greenPointsBalance: userProfile.greenPointsBalance + points,
+      lifetimePointsEarned: userProfile.lifetimePointsEarned + points,
+    };
+    saveProfile(updatedProfile);
+
+    // Add activity
+    const activity: ActivityItem = {
+      id: `act-${Date.now()}`,
+      title: `+${points} GreenPoints Referral Reward!`,
+      description: `${target.referredUserName} completed their first verified waste collection.`,
+      timestamp: 'Just now',
+      type: 'referral_bonus',
+    };
+    saveActivities([activity, ...activities]);
+
+    showToast(
+      'success',
+      `+${points} GreenPoints Credited!`,
+      `${target.referredUserName}'s first waste collection was verified. Your referral bonus is now available!`
+    );
+  };
+
   // Reset to clean user state
   const clearUserData = () => {
     savePickups([]);
@@ -511,6 +686,7 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
     saveActivities([]);
     saveProfile(DEFAULT_PROFILE);
     saveRedeemed([]);
+    saveReferrals([]);
     showToast('info', 'Data Cleared', 'All stored user activity has been cleared.');
   };
 
@@ -544,6 +720,10 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
         language,
         setLanguage,
         t,
+        referrals,
+        addReferral,
+        simulateFriendReferral,
+        simulateCompleteFirstCollection,
         addPickup,
         cancelPickup,
         updatePickupStatus,

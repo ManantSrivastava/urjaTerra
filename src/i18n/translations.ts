@@ -18,6 +18,7 @@ export interface Translations {
     admin: string;
     logOut: string;
     pts: string;
+    refer: string;
   };
   hero: {
     heading1: string;
@@ -242,6 +243,47 @@ export interface Translations {
     active: string;
     redeemNow: string;
   };
+  refer: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    codeCardTitle: string;
+    codeCardDesc: string;
+    copyCode: string;
+    copiedCode: string;
+    copyLink: string;
+    copiedLink: string;
+    shareWhatsapp: string;
+    statInvited: string;
+    statSuccessful: string;
+    statPending: string;
+    statPointsEarned: string;
+    howTitle: string;
+    howSubtitle: string;
+    step1Title: string;
+    step1Desc: string;
+    step2Title: string;
+    step2Desc: string;
+    step3Title: string;
+    step3Desc: string;
+    tableTitle: string;
+    tableDesc: string;
+    colDate: string;
+    colFriend: string;
+    colStatus: string;
+    colReward: string;
+    colPoints: string;
+    emptyHistory: string;
+    statusRegistered: string;
+    statusVerified: string;
+    rewardPending: string;
+    rewardRewarded: string;
+    demoNoticeTitle: string;
+    demoNoticeDesc: string;
+    simulateBtn: string;
+    simulateSuccess: string;
+    whatsappMessage: string;
+  };
 }
 
 export const TRANSLATIONS: Record<Language, Translations> = {
@@ -257,6 +299,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       admin: 'Admin',
       logOut: 'Log Out',
       pts: 'pts',
+      refer: 'Refer & Earn',
     },
     hero: {
       heading1: 'Waste Less.',
@@ -560,6 +603,50 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       active: 'Active',
       redeemNow: 'Redeem Now',
     },
+    refer: {
+      badge: 'Community Growth & Referral Program',
+      title: 'Refer & Earn GreenPoints',
+      subtitle:
+        'Invite friends, neighbours, and classmates to join urjaTerra. When they complete their first verified recyclable waste collection, you receive 100 GreenPoints and they get a 50 GreenPoints welcome bonus.',
+      codeCardTitle: 'Your Unique Referral Code',
+      codeCardDesc: 'Share your code or direct invitation link with friends to start earning.',
+      copyCode: 'Copy Code',
+      copiedCode: 'Copied!',
+      copyLink: 'Copy Referral Link',
+      copiedLink: 'Link Copied!',
+      shareWhatsapp: 'Share via WhatsApp',
+      statInvited: 'People Invited',
+      statSuccessful: 'Verified Referrals',
+      statPending: 'Pending 1st Pickup',
+      statPointsEarned: 'Referral GreenPoints',
+      howTitle: 'How Refer & Earn Works',
+      howSubtitle: 'Earn rewards in 3 simple and transparent steps.',
+      step1Title: 'Share Your Code',
+      step1Desc: 'Send your referral code or invitation link to friends, peers, and family.',
+      step2Title: 'Friend Collects First Recyclables',
+      step2Desc: 'Your friend registers and schedules their first dry waste pickup with verified scale weighing.',
+      step3Title: 'Both Earn GreenPoints',
+      step3Desc: 'Once verified by our collection team, you receive 100 GreenPoints and your friend gets 50 GreenPoints!',
+      tableTitle: 'Referral History',
+      tableDesc: 'Track your invitations, collection progress, and reward status in real time.',
+      colDate: 'Invitation Date',
+      colFriend: 'Referred User',
+      colStatus: 'User Status',
+      colReward: 'Reward Status',
+      colPoints: 'Points Awarded',
+      emptyHistory: 'No referrals yet. Share your code above to invite your first friend!',
+      statusRegistered: 'Registered (Awaiting Pickup)',
+      statusVerified: 'First Collection Verified',
+      rewardPending: 'Pending Collection',
+      rewardRewarded: '100 GreenPoints Rewarded',
+      demoNoticeTitle: 'Frontend Demonstration Storage Notice',
+      demoNoticeDesc:
+        'Referral links, codes, and rewards are simulated locally in client-side storage (LocalStorage). In this demo, points are granted only after a verified collection is marked in the system.',
+      simulateBtn: 'Simulate Friend Sign-up & First Pickup',
+      simulateSuccess: 'Simulation complete! Referral created and verified with 100 GreenPoints awarded.',
+      whatsappMessage:
+        'Hey! Join me on urjaTerra to recycle recyclable waste at your doorstep and evaluate rooftop solar savings. Use my referral code {code} to get a 50 GreenPoints bonus on your first verified collection! Join here: {link}',
+    },
   },
   Hi: {
     nav: {
@@ -573,6 +660,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       admin: 'एडमिन',
       logOut: 'लॉग आउट',
       pts: 'अंक',
+      refer: 'रेफर और कमाएं',
     },
     hero: {
       heading1: 'कम कचरा।',
@@ -875,6 +963,50 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       claimCode: 'दावा किया गया! कोड: ',
       active: 'सक्रिय',
       redeemNow: 'अभी भुनाएं',
+    },
+    refer: {
+      badge: 'सामुदायिक विकास एवं रेफरल कार्यक्रम',
+      title: 'रेफर करें और ग्रीनपॉइंट्स कमाएं',
+      subtitle:
+        'अपने दोस्तों, पड़ोसियों और सहपाठियों को urjaTerra पर आमंत्रित करें। जब वे अपना पहला सत्यापित सूखा कचरा संग्रह पूरा करते हैं, तो आपको 100 ग्रीनपॉइंट्स मिलते हैं और उन्हें 50 ग्रीनपॉइंट्स का स्वागत बोनस मिलता है।',
+      codeCardTitle: 'आपका विशिष्ट रेफरल कोड',
+      codeCardDesc: 'कमाई शुरू करने के लिए अपने दोस्तों के साथ अपना कोड या सीधा आमंत्रण लिंक साझा करें।',
+      copyCode: 'कोड कॉपी करें',
+      copiedCode: 'कॉपी हो गया!',
+      copyLink: 'रेफरल लिंक कॉपी करें',
+      copiedLink: 'लिंक कॉपी हो गया!',
+      shareWhatsapp: 'व्हाट्सएप पर साझा करें',
+      statInvited: 'कुल आमंत्रित लोग',
+      statSuccessful: 'सत्यापित रेफरल',
+      statPending: 'प्रतीक्षारत रेफरल',
+      statPointsEarned: 'रेफरल से अर्जित ग्रीनपॉइंट्स',
+      howTitle: 'रेफर और कमाएं कैसे काम करता है',
+      howSubtitle: '3 सरल और पारदर्शी चरणों में पुरस्कार अर्जित करें।',
+      step1Title: 'अपना कोड साझा करें',
+      step1Desc: 'अपने दोस्तों, साथियों और परिवार को अपना रेफरल कोड या आमंत्रण लिंक भेजें।',
+      step2Title: 'दोस्त पहला कचरा पिकअप पूरा करें',
+      step2Desc: 'आपका मित्र पंजीकरण करता है और डिजिटल तराजू वजन के साथ अपना पहला सूखा कचरा पिकअप पूरा करता है।',
+      step3Title: 'दोनों ग्रीनपॉइंट्स अर्जित करते हैं',
+      step3Desc: 'संग्रह सत्यापित होने पर, आपको 100 ग्रीनपॉइंट्स और आपके मित्र को 50 ग्रीनपॉइंट्स मिलते हैं!',
+      tableTitle: 'रेफरल इतिहास',
+      tableDesc: 'अपने आमंत्रणों, संग्रह प्रगति और पुरस्कार स्थिति को वास्तविक समय में ट्रैक करें।',
+      colDate: 'आमंत्रण तारीख',
+      colFriend: 'आमंत्रित उपयोगकर्ता',
+      colStatus: 'उपयोगकर्ता स्थिति',
+      colReward: 'पुरस्कार स्थिति',
+      colPoints: 'अर्जित अंक',
+      emptyHistory: 'अभी तक कोई रेफरल नहीं है। अपने पहले दोस्त को आमंत्रित करने के लिए ऊपर अपना कोड साझा करें!',
+      statusRegistered: 'पंजीकृत (पिकअप प्रतीक्षारत)',
+      statusVerified: 'पहला संग्रह सत्यापित',
+      rewardPending: 'पिकअप प्रतीक्षारत',
+      rewardRewarded: '100 ग्रीनपॉइंट्स प्राप्त',
+      demoNoticeTitle: 'फ़्रंटएंड प्रदर्शन सूचना',
+      demoNoticeDesc:
+        'रेफरल लिंक, कोड और पुरस्कार स्थानीय क्लाइंट-साइड ब्राउज़र स्टोरेज (LocalStorage) में सुरक्षित हैं। इस प्रदर्शन में, अंक केवल सत्यापित पिकअप पूरा होने पर दिए जाते हैं।',
+      simulateBtn: 'मित्र पंजीकरण और पहला पिकअप अनुकरण करें',
+      simulateSuccess: 'अनुकरण सफल! रेफरल सत्यापित हुआ और 100 ग्रीनपॉइंट्स जमा किए गए।',
+      whatsappMessage:
+        'नमस्ते! अपने घर पर सूखा कचरा रीसायकल करने और रूफटॉप सोलर बचत देखने के लिए urjaTerra से जुड़ें। अपने पहले सत्यापित संग्रह पर 50 ग्रीनपॉइंट्स बोनस पाने के लिए मेरे रेफरल कोड {code} का उपयोग करें! यहां जुड़ें: {link}',
     },
   },
 };

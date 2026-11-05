@@ -107,7 +107,23 @@ export interface ActivityItem {
   title: string;
   description: string;
   timestamp: string;
-  type: 'waste_pickup' | 'waste_collected' | 'solar_enquiry' | 'reward_redeemed' | 'system';
+  type: 'waste_pickup' | 'waste_collected' | 'solar_enquiry' | 'reward_redeemed' | 'referral_bonus' | 'system';
+}
+
+export type ReferralUserStatus = 'Registered' | 'First Collection Verified';
+export type ReferralRewardStatus = 'Pending' | 'Rewarded';
+
+export interface ReferralRecord {
+  id: string;
+  referralCode: string;
+  referredUserName: string;
+  referredUserEmail: string;
+  date: string;
+  userStatus: ReferralUserStatus;
+  rewardStatus: ReferralRewardStatus;
+  referrerPointsAwarded: number;
+  referredPointsAwarded: number;
+  completedAt?: string;
 }
 
 export interface UserProfile {
@@ -118,4 +134,7 @@ export interface UserProfile {
   campusLocation: string;
   greenPointsBalance: number;
   lifetimePointsEarned: number;
+  referralCode?: string;
+  referredBy?: string;
+  referralRewardClaimed?: boolean;
 }

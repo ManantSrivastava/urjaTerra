@@ -40,6 +40,7 @@ export const Navigation: React.FC = () => {
     { name: t.nav.home, href: '/' },
     { name: t.nav.waste, href: '/waste' },
     { name: t.nav.solar, href: '/solar' },
+    { name: t.nav.refer, href: '/refer' },
     { name: t.nav.about, href: '/#about' },
   ];
 

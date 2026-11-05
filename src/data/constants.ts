@@ -142,3 +142,9 @@ export const REWARD_ITEMS: RewardItem[] = [
     partner: 'City SmartTransit',
   },
 ];
+
+export const REFERRAL_CONFIG = {
+  referrerRewardPoints: 100, // Referrer reward once referred user completes 1st verified collection
+  referredRewardPoints: 50,  // New user welcome bonus after 1st verified collection
+  codePrefix: 'UT',
+};
