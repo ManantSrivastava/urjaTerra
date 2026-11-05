@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const WastePickupForm: React.FC<Props> = ({ onSuccess }) => {
-  const { addPickup } = useEarthSync();
+  const { addPickup, t, language } = useEarthSync();
 
   const [category, setCategory] = useState<WasteCategoryId>('paper');
   const [quantityKg, setQuantityKg] = useState<number>(5);
@@ -51,17 +51,17 @@ export const WastePickupForm: React.FC<Props> = ({ onSuccess }) => {
     setError(null);
 
     if (!quantityKg || quantityKg <= 0) {
-      setError('Please specify a valid quantity greater than 0 kg.');
+      setError(t.wasteForm.errQuantity);
       return;
     }
 
     if (!address.trim() || address.trim().length < 5) {
-      setError('Please provide a complete pickup address (at least 5 characters).');
+      setError(t.wasteForm.errAddress);
       return;
     }
 
     if (!preferredDate) {
-      setError('Please select a preferred pickup date.');
+      setError(t.wasteForm.errDate);
       return;
     }
 
@@ -98,7 +98,7 @@ export const WastePickupForm: React.FC<Props> = ({ onSuccess }) => {
       {/* Step 1: Waste Category */}
       <div>
         <label className="block text-xs font-bold text-[#17231E] uppercase tracking-wider mb-2">
-          Waste Category <span className="text-rose-500">*</span>
+          {t.wasteForm.categoryLabel} <span className="text-rose-500">*</span>
         </label>
         <WasteCategorySelector selectedId={category} onSelect={(id) => setCategory(id)} />
       </div>
@@ -107,7 +107,7 @@ export const WastePickupForm: React.FC<Props> = ({ onSuccess }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
         <div>
           <label className="block text-xs font-bold text-[#17231E] uppercase tracking-wider mb-2">
-            Estimated Quantity (kg) <span className="text-rose-500">*</span>
+            {t.wasteForm.quantityLabel} <span className="text-rose-500">*</span>
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#65736B]">
@@ -125,13 +125,13 @@ export const WastePickupForm: React.FC<Props> = ({ onSuccess }) => {
               required
             />
             <span className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-xs font-medium text-[#65736B]">
-              KG
+              {language === 'Hi' ? 'किग्रा' : 'KG'}
             </span>
           </div>
 
           {/* Quick preset buttons */}
           <div className="flex items-center gap-1.5 mt-2">
-            <span className="text-[11px] text-[#65736B]">Quick select:</span>
+            <span className="text-[11px] text-[#65736B]">{t.wasteForm.quickSelect}</span>
             {[2, 5, 10, 20, 50].map((kg) => (
               <button
                 key={kg}
@@ -143,7 +143,7 @@ export const WastePickupForm: React.FC<Props> = ({ onSuccess }) => {
                     : 'bg-[#F8FAF7] hover:bg-white text-[#17231E] border-[#E2E9E3]'
                 }`}
               >
-                {kg}kg
+                {kg} {language === 'Hi' ? 'किग्रा' : 'kg'}
               </button>
             ))}
           </div>
@@ -154,20 +154,20 @@ export const WastePickupForm: React.FC<Props> = ({ onSuccess }) => {
           <div className="flex items-center justify-between text-xs">
             <span className="flex items-center gap-1 font-semibold text-[#063D2E]">
               <Sparkles className="w-3.5 h-3.5 text-[#FFB800]" />
-              Estimated Reward
+              {t.wasteForm.estimatedReward}
             </span>
             <span className="text-[10px] bg-white border border-[#E2E9E3] px-2 py-0.5 rounded text-[#65736B]">
-              Credited on Completed Pickup
+              {t.wasteForm.creditedNotice}
             </span>
           </div>
           <div className="my-2 flex items-baseline gap-2">
             <span className="text-2xl font-bold text-[#063D2E] tracking-tight">
               +{potentialPoints}
             </span>
-            <span className="text-xs text-[#65736B] font-medium">GreenPoints</span>
+            <span className="text-xs text-[#65736B] font-medium">{t.wasteForm.greenPoints}</span>
           </div>
           <p className="text-[11px] text-[#65736B] leading-snug">
-            Recovers recyclable material and prevents ~{potentialCo2} kg of landfill emissions.
+            {t.wasteForm.environmentalImpact.replace('{co2}', potentialCo2)}
           </p>
         </div>
       </div>
@@ -175,7 +175,7 @@ export const WastePickupForm: React.FC<Props> = ({ onSuccess }) => {
       {/* Step 3: Pickup Address */}
       <div>
         <label className="block text-xs font-bold text-[#17231E] uppercase tracking-wider mb-1.5">
-          Pickup Address <span className="text-rose-500">*</span>
+          {t.wasteForm.addressLabel} <span className="text-rose-500">*</span>
         </label>
         <div className="relative">
           <div className="absolute top-3 left-3 text-[#65736B]">
@@ -186,14 +186,14 @@ export const WastePickupForm: React.FC<Props> = ({ onSuccess }) => {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             className="w-full pl-9 pr-3 py-2 rounded-md border border-[#E2E9E3] focus:outline-none focus:ring-1 focus:ring-[#063D2E] focus:border-[#063D2E] text-sm text-[#17231E] bg-white"
-            placeholder="Room number, building, floor or street address"
+            placeholder={t.wasteForm.addressPlaceholder}
             required
           />
         </div>
 
         {/* Address Presets */}
         <div className="flex flex-wrap gap-1.5 mt-2">
-          <span className="text-[11px] text-[#65736B] self-center">Presets:</span>
+          <span className="text-[11px] text-[#65736B] self-center">{t.wasteForm.presets}</span>
           {addressPresets.map((preset, idx) => (
             <button
               key={idx}
@@ -211,7 +211,7 @@ export const WastePickupForm: React.FC<Props> = ({ onSuccess }) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-bold text-[#17231E] uppercase tracking-wider mb-1.5">
-            Preferred Date <span className="text-rose-500">*</span>
+            {t.wasteForm.preferredDate} <span className="text-rose-500">*</span>
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#65736B]">
@@ -230,7 +230,7 @@ export const WastePickupForm: React.FC<Props> = ({ onSuccess }) => {
 
         <div>
           <label className="block text-xs font-bold text-[#17231E] uppercase tracking-wider mb-1.5">
-            Preferred Time Slot <span className="text-rose-500">*</span>
+            {t.wasteForm.preferredTime} <span className="text-rose-500">*</span>
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#65736B]">
@@ -241,9 +241,9 @@ export const WastePickupForm: React.FC<Props> = ({ onSuccess }) => {
               onChange={(e) => setTimeSlot(e.target.value as TimeSlot)}
               className="w-full pl-9 pr-3 py-2.5 rounded-md border border-[#E2E9E3] focus:outline-none focus:ring-1 focus:ring-[#063D2E] focus:border-[#063D2E] text-sm font-medium text-[#17231E] bg-white cursor-pointer"
             >
-              <option value="Morning (08:00 - 11:00)">Morning (08:00 - 11:00)</option>
-              <option value="Afternoon (12:00 - 15:00)">Afternoon (12:00 - 15:00)</option>
-              <option value="Evening (16:00 - 19:00)">Evening (16:00 - 19:00)</option>
+              <option value="Morning (08:00 - 11:00)">{t.wasteForm.slotMorning}</option>
+              <option value="Afternoon (12:00 - 15:00)">{t.wasteForm.slotAfternoon}</option>
+              <option value="Evening (16:00 - 19:00)">{t.wasteForm.slotEvening}</option>
             </select>
           </div>
         </div>
@@ -252,13 +252,13 @@ export const WastePickupForm: React.FC<Props> = ({ onSuccess }) => {
       {/* Step 5: Optional Notes */}
       <div>
         <label className="block text-xs font-bold text-[#17231E] uppercase tracking-wider mb-1.5">
-          Optional Notes
+          {t.wasteForm.optionalNotes}
         </label>
         <input
           type="text"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          placeholder="e.g. Leave with reception, call on arrival, segregated in marked boxes"
+          placeholder={t.wasteForm.notesPlaceholder}
           className="w-full px-3.5 py-2.5 rounded-md border border-[#E2E9E3] focus:outline-none focus:ring-1 focus:ring-[#063D2E] focus:border-[#063D2E] text-sm text-[#17231E] bg-white"
         />
       </div>
@@ -271,10 +271,10 @@ export const WastePickupForm: React.FC<Props> = ({ onSuccess }) => {
           className="w-full py-3 px-6 rounded-md bg-[#063D2E] hover:bg-[#042E24] text-white font-semibold text-sm tracking-wide transition-colors flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
         >
           <CheckCircle2 className="w-4 h-4" />
-          <span>Schedule Waste Pickup</span>
+          <span>{t.wasteForm.scheduleBtn}</span>
         </button>
         <p className="text-center text-[11px] text-[#65736B] mt-2">
-          Your segregated waste collection request will be routed to localized recycling partners.
+          {t.wasteForm.footerNote}
         </p>
       </div>
     </form>

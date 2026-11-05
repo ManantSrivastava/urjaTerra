@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useEarthSync } from '@/context/EarthSyncContext';
 import { WASTE_CATEGORIES } from '@/data/constants';
 import { WasteCategoryId } from '@/types';
 import { Package, FileText, Shield, Wine, Cpu, Leaf, Sparkles, Box } from 'lucide-react';
@@ -11,6 +12,8 @@ interface Props {
 }
 
 export const WasteCategorySelector: React.FC<Props> = ({ selectedId, onSelect }) => {
+  const { t } = useEarthSync();
+
   const getIcon = (id: WasteCategoryId) => {
     switch (id) {
       case 'paper':
@@ -36,6 +39,10 @@ export const WasteCategorySelector: React.FC<Props> = ({ selectedId, onSelect })
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
       {WASTE_CATEGORIES.map((cat) => {
         const isSelected = selectedId === cat.id;
+        const detail = t.categoryDetails[cat.id];
+        const categoryName = detail?.name || cat.name;
+        const categoryDesc = detail?.description || cat.description;
+        const categoryEx = (detail?.examples || cat.examples).split(',')[0];
 
         return (
           <button
@@ -59,17 +66,17 @@ export const WasteCategorySelector: React.FC<Props> = ({ selectedId, onSelect })
                 </div>
                 <span className="flex items-center gap-1 text-[11px] font-semibold text-[#063D2E] bg-white px-2 py-0.5 rounded border border-[#E2E9E3]">
                   <Sparkles className="w-3 h-3 text-[#FFB800]" />
-                  +{cat.pointsPerKg} pts/kg
+                  +{cat.pointsPerKg} {t.nav.pts}/kg
                 </span>
               </div>
-              <h4 className="font-semibold text-sm text-[#17231E] leading-tight">{cat.name}</h4>
+              <h4 className="font-semibold text-sm text-[#17231E] leading-tight">{categoryName}</h4>
               <p className="text-[11px] text-[#65736B] mt-1 line-clamp-2 leading-relaxed">
-                {cat.description}
+                {categoryDesc}
               </p>
             </div>
 
             <div className="mt-2.5 pt-2 border-t border-[#E2E9E3] flex items-center justify-between text-[10px] text-[#65736B]">
-              <span className="truncate">e.g. {cat.examples.split(',')[0]}</span>
+              <span className="truncate">e.g. {categoryEx}</span>
               <span className="font-medium text-[#063D2E]">~{cat.co2SavedPerKg}kg CO₂e</span>
             </div>
           </button>

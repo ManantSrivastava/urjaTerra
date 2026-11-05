@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 
 export default function ProfilePage() {
-  const { userProfile, isHydrated, updateProfile, logout, clearUserData } = useEarthSync();
+  const { userProfile, isHydrated, updateProfile, logout, clearUserData, t, language } = useEarthSync();
   const [activeTab, setActiveTab] = useState<'rewards' | 'settings'>('rewards');
 
   // Edit form state
@@ -83,14 +83,14 @@ export default function ProfilePage() {
               <div>
                 <div className="flex items-center gap-2">
                   <h1 className="text-xl sm:text-2xl font-bold text-stone-900">
-                    {userProfile.name || 'urjaTerra Member'}
+                    {userProfile.name || (language === 'Hi' ? 'urjaTerra सदस्य' : 'urjaTerra Member')}
                   </h1>
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200">
-                    {userProfile.greenPointsBalance > 0 ? 'Eco Champion' : 'Active Member'}
+                    {userProfile.greenPointsBalance > 0 ? t.profile.ecoChampion : t.profile.activeMember}
                   </span>
                 </div>
                 <p className="text-xs text-stone-500 mt-0.5 flex items-center gap-2">
-                  <span>{userProfile.email || 'No email registered'}</span>
+                  <span>{userProfile.email || (language === 'Hi' ? 'कोई ईमेल दर्ज नहीं' : 'No email registered')}</span>
                   {userProfile.collegeId && (
                     <>
                       <span>•</span>
@@ -99,7 +99,7 @@ export default function ProfilePage() {
                   )}
                 </p>
                 <p className="text-xs text-stone-400 mt-0.5">
-                  {userProfile.department || 'CleanTech Advocate'}{' '}
+                  {userProfile.department || (language === 'Hi' ? 'क्लीनटेक समर्थक' : 'CleanTech Advocate')}{' '}
                   {userProfile.campusLocation ? `• ${userProfile.campusLocation}` : ''}
                 </p>
               </div>
@@ -108,7 +108,7 @@ export default function ProfilePage() {
             <div className="flex items-center gap-3 self-stretch sm:self-auto">
               <div className="bg-emerald-50 border border-emerald-200 px-4 py-2.5 rounded-lg text-center flex-1 sm:flex-initial">
                 <span className="text-[10px] text-emerald-800 font-semibold uppercase tracking-wider block">
-                  GreenPoints
+                  {t.profile.greenPoints}
                 </span>
                 <span className="text-xl font-bold text-amber-700">
                   {userProfile.greenPointsBalance.toLocaleString()}
@@ -117,7 +117,7 @@ export default function ProfilePage() {
 
               <div className="bg-stone-50 border border-stone-200 px-4 py-2.5 rounded-lg text-center flex-1 sm:flex-initial">
                 <span className="text-[10px] text-stone-500 font-semibold uppercase tracking-wider block">
-                  Lifetime Pts
+                  {t.profile.lifetimePts}
                 </span>
                 <span className="text-xl font-bold text-stone-800">
                   {userProfile.lifetimePointsEarned.toLocaleString()}
@@ -129,7 +129,7 @@ export default function ProfilePage() {
           {userProfile.greenPointsBalance === 0 && (
             <div className="mt-4 pt-3 border-t border-stone-100 flex items-center gap-2 text-xs text-stone-500">
               <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>Your GreenPoints balance will appear here once you complete eligible activities.</span>
+              <span>{t.profile.emptyNotice}</span>
             </div>
           )}
         </div>
@@ -146,7 +146,7 @@ export default function ProfilePage() {
           }`}
         >
           <Gift className="w-4 h-4" />
-          <span>GreenPoints Rewards</span>
+          <span>{t.profile.rewardsTab}</span>
         </button>
 
         <button
@@ -158,7 +158,7 @@ export default function ProfilePage() {
           }`}
         >
           <Settings className="w-4 h-4" />
-          <span>Account & Profile</span>
+          <span>{t.profile.accountTab}</span>
         </button>
       </div>
 
@@ -169,10 +169,10 @@ export default function ProfilePage() {
         <div className="bg-white rounded-xl border border-stone-200 p-6 sm:p-8 shadow-xs space-y-6">
           <div>
             <h2 className="text-base font-bold text-stone-900">
-              Account & Profile Settings
+              {t.profile.accountSettings}
             </h2>
             <p className="text-xs text-stone-500 mt-1">
-              Manage your personal information and browser data persistence.
+              {t.profile.manageInfo}
             </p>
           </div>
 
@@ -180,8 +180,8 @@ export default function ProfilePage() {
           <div className="p-4 rounded-lg bg-amber-50/80 border border-amber-200 text-xs text-amber-900 flex items-start gap-3 leading-relaxed">
             <ShieldAlert className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
             <div>
-              <span className="font-bold text-amber-950 block mb-0.5">Frontend Demonstration Notice</span>
-              All profile entries and operational records are stored strictly within client-side browser storage (LocalStorage). This demonstration does not persist data to a remote production database and is not secured for enterprise authentication.
+              <span className="font-bold text-amber-950 block mb-0.5">{t.profile.demoNoticeTitle}</span>
+              {t.profile.demoNoticeDesc}
             </div>
           </div>
 
@@ -190,7 +190,7 @@ export default function ProfilePage() {
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-bold text-stone-900 text-sm flex items-center gap-2">
                 <UserCheck className="w-4 h-4 text-emerald-800" />
-                <span>Profile Details</span>
+                <span>{t.profile.profileDetails}</span>
               </h3>
               {!isEditing && (
                 <button
@@ -203,7 +203,7 @@ export default function ProfilePage() {
                   }}
                   className="text-xs font-semibold text-emerald-800 hover:underline cursor-pointer"
                 >
-                  Edit Information
+                  {t.profile.editInfo}
                 </button>
               )}
             </div>
@@ -212,7 +212,7 @@ export default function ProfilePage() {
               <form onSubmit={handleSaveProfile} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-stone-700 mb-1">Full Name</label>
+                    <label className="block text-xs font-semibold text-stone-700 mb-1">{t.profile.fullName}</label>
                     <input
                       type="text"
                       value={name}
@@ -222,7 +222,7 @@ export default function ProfilePage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-stone-700 mb-1">Email Address</label>
+                    <label className="block text-xs font-semibold text-stone-700 mb-1">{t.profile.emailAddress}</label>
                     <input
                       type="email"
                       value={email}
@@ -232,7 +232,7 @@ export default function ProfilePage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-stone-700 mb-1">Department / Organization</label>
+                    <label className="block text-xs font-semibold text-stone-700 mb-1">{t.profile.deptOrg}</label>
                     <input
                       type="text"
                       value={department}
@@ -242,7 +242,7 @@ export default function ProfilePage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-stone-700 mb-1">Campus / Location</label>
+                    <label className="block text-xs font-semibold text-stone-700 mb-1">{t.profile.campusLoc}</label>
                     <input
                       type="text"
                       value={campusLocation}
@@ -258,34 +258,34 @@ export default function ProfilePage() {
                     type="submit"
                     className="py-2 px-4 rounded-md bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-semibold transition-colors cursor-pointer"
                   >
-                    Save Changes
+                    {t.profile.saveChanges}
                   </button>
                   <button
                     type="button"
                     onClick={() => setIsEditing(false)}
                     className="py-2 px-4 rounded-md border border-stone-300 text-stone-700 hover:bg-stone-50 text-xs font-semibold transition-colors cursor-pointer"
                   >
-                    Cancel
+                    {t.profile.cancel}
                   </button>
                 </div>
               </form>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-stone-600">
                 <div>
-                  <span className="font-semibold text-stone-800 block">Name:</span>
-                  <span>{userProfile.name || 'Not set'}</span>
+                  <span className="font-semibold text-stone-800 block">{t.profile.nameLabel}</span>
+                  <span>{userProfile.name || t.profile.notSet}</span>
                 </div>
                 <div>
-                  <span className="font-semibold text-stone-800 block">Email:</span>
-                  <span>{userProfile.email || 'Not set'}</span>
+                  <span className="font-semibold text-stone-800 block">{t.profile.emailLabel}</span>
+                  <span>{userProfile.email || t.profile.notSet}</span>
                 </div>
                 <div>
-                  <span className="font-semibold text-stone-800 block">Department:</span>
-                  <span>{userProfile.department || 'Not set'}</span>
+                  <span className="font-semibold text-stone-800 block">{t.profile.deptLabel}</span>
+                  <span>{userProfile.department || t.profile.notSet}</span>
                 </div>
                 <div>
-                  <span className="font-semibold text-stone-800 block">Location:</span>
-                  <span>{userProfile.campusLocation || 'Not set'}</span>
+                  <span className="font-semibold text-stone-800 block">{t.profile.locationLabel}</span>
+                  <span>{userProfile.campusLocation || t.profile.notSet}</span>
                 </div>
               </div>
             )}
@@ -299,7 +299,7 @@ export default function ProfilePage() {
                 className="py-2 px-4 rounded-md border border-stone-300 text-stone-700 hover:bg-stone-100 text-xs font-semibold transition-colors flex items-center gap-2 cursor-pointer"
               >
                 <LogOut className="w-3.5 h-3.5" />
-                <span>Sign Out</span>
+                <span>{t.profile.signOut}</span>
               </button>
             )}
 
@@ -308,12 +308,12 @@ export default function ProfilePage() {
               className="py-2 px-4 rounded-md bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold transition-colors flex items-center gap-2 cursor-pointer ml-auto"
             >
               <Trash2 className="w-3.5 h-3.5" />
-              <span>Clear Stored Browser Data</span>
+              <span>{t.profile.clearData}</span>
             </button>
           </div>
 
           <div className="pt-4 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
-            <span>urjaTerra CleanTech Platform</span>
+            <span>{t.profile.platformName}</span>
             <span className="font-mono text-emerald-800 font-semibold">v1.0</span>
           </div>
         </div>

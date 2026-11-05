@@ -183,28 +183,28 @@ export default function SmartWastePage() {
             <div className="bg-white rounded-lg border border-[#E2E9E3] p-5 space-y-3">
               <div className="flex items-center gap-2 text-[#063D2E] font-bold text-xs uppercase tracking-wider">
                 <Sparkles className="w-4 h-4 text-[#FFB800]" />
-                <span>GreenPoints Reward Logic</span>
+                <span>{t.wasteSidebar.rewardLogic}</span>
               </div>
               <h3 className="text-sm font-bold text-[#17231E]">
-                Single-Credit Verification Protocol
+                {t.wasteSidebar.protocolTitle}
               </h3>
               <p className="text-xs text-[#65736B] leading-relaxed">
-                Points are <strong>credited exactly once</strong> when a request transition from Pending or Scheduled to <strong>Completed</strong>. This ensures simulation accuracy without duplicate awards.
+                {t.wasteSidebar.protocolDesc}
               </p>
 
               <div className="pt-3 border-t border-[#E2E9E3] space-y-2 text-xs">
                 <div className="flex items-center justify-between text-[#65736B]">
-                  <span>Active Pending / Scheduled:</span>
+                  <span>{t.wasteSidebar.activePending}</span>
                   <span className="font-semibold text-[#17231E]">{pendingCount}</span>
                 </div>
                 <div className="flex items-center justify-between text-[#65736B]">
-                  <span>Completed & Rewarded:</span>
+                  <span>{t.wasteSidebar.completedRewarded}</span>
                   <span className="font-semibold text-[#063D2E]">{completedCount}</span>
                 </div>
                 <div className="flex items-center justify-between text-[#65736B]">
-                  <span>Current Balance:</span>
+                  <span>{t.wasteSidebar.currentBalance}</span>
                   <span className="font-bold text-[#FFB800] bg-[#063D2E] px-2 py-0.5 rounded text-[11px]">
-                    {isHydrated ? userProfile.greenPointsBalance : '...'} pts
+                    {isHydrated ? userProfile.greenPointsBalance : '...'} {t.nav.pts}
                   </span>
                 </div>
               </div>
@@ -213,10 +213,10 @@ export default function SmartWastePage() {
             {/* Recent Activity Stream */}
             <div className="bg-white rounded-lg border border-[#E2E9E3] p-5 space-y-3">
               <h3 className="font-bold text-[#17231E] text-xs uppercase tracking-wider">
-                Recent GreenPoints Activity
+                {t.wasteSidebar.recentActivity}
               </h3>
               {recentActivities.length === 0 ? (
-                <p className="text-xs text-[#65736B]">No recent activity logged yet.</p>
+                <p className="text-xs text-[#65736B]">{t.wasteSidebar.noActivity}</p>
               ) : (
                 <div className="space-y-2.5 pt-1">
                   {recentActivities.map((act) => (
@@ -234,12 +234,12 @@ export default function SmartWastePage() {
 
             {/* Material Guidelines */}
             <div className="bg-[#F8FAF7] rounded-lg border border-[#E2E9E3] p-5 space-y-2 text-xs text-[#65736B]">
-              <h4 className="font-bold text-[#17231E] text-xs">Sorting Checklist</h4>
+              <h4 className="font-bold text-[#17231E] text-xs">{t.wasteSidebar.sortingChecklist}</h4>
               <ul className="space-y-1.5 list-disc pl-4 leading-relaxed">
-                <li>Paper & Cardboard: Keep dry and flattened.</li>
-                <li>Plastic containers: Empty and lightly rinse.</li>
-                <li>E-waste: Keep cables and chargers grouped together.</li>
-                <li>Metal: Remove non-metal caps and residue.</li>
+                <li>{t.wasteSidebar.check1}</li>
+                <li>{t.wasteSidebar.check2}</li>
+                <li>{t.wasteSidebar.check3}</li>
+                <li>{t.wasteSidebar.check4}</li>
               </ul>
             </div>
 
@@ -249,9 +249,9 @@ export default function SmartWastePage() {
         /* Tab 2: Request History */
         <div className="space-y-6">
           <div className="bg-white p-6 rounded-lg border border-[#E2E9E3]">
-            <h2 className="text-base font-bold text-[#17231E] mb-1">Waste Collection History</h2>
+            <h2 className="text-base font-bold text-[#17231E] mb-1">{t.wasteSidebar.historyHeading}</h2>
             <p className="text-xs text-[#65736B] mb-4">
-              Track submitted requests, review statuses, and manage your scheduled pickups.
+              {t.wasteSidebar.historyDesc}
             </p>
             <PickupList onOpenSchedule={() => setActiveTab('schedule')} />
           </div>

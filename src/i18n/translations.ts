@@ -1,5 +1,11 @@
 export type Language = 'En' | 'Hi';
 
+export interface CategoryDetail {
+  name: string;
+  description: string;
+  examples: string;
+}
+
 export interface Translations {
   nav: {
     home: string;
@@ -96,6 +102,57 @@ export interface Translations {
     bookHeading: string;
     bookDesc: string;
   };
+  categories: {
+    paper: string;
+    cardboard: string;
+    plastic: string;
+    metal: string;
+    ewaste: string;
+    glass: string;
+    organic: string;
+  };
+  categoryDetails: Record<string, CategoryDetail>;
+  wasteForm: {
+    categoryLabel: string;
+    quantityLabel: string;
+    quickSelect: string;
+    estimatedReward: string;
+    creditedNotice: string;
+    greenPoints: string;
+    environmentalImpact: string;
+    addressLabel: string;
+    addressPlaceholder: string;
+    presets: string;
+    preferredDate: string;
+    preferredTime: string;
+    slotMorning: string;
+    slotAfternoon: string;
+    slotEvening: string;
+    optionalNotes: string;
+    notesPlaceholder: string;
+    scheduleBtn: string;
+    footerNote: string;
+    errQuantity: string;
+    errAddress: string;
+    errDate: string;
+  };
+  wasteSidebar: {
+    rewardLogic: string;
+    protocolTitle: string;
+    protocolDesc: string;
+    activePending: string;
+    completedRewarded: string;
+    currentBalance: string;
+    recentActivity: string;
+    noActivity: string;
+    sortingChecklist: string;
+    check1: string;
+    check2: string;
+    check3: string;
+    check4: string;
+    historyHeading: string;
+    historyDesc: string;
+  };
   solar: {
     service: string;
     title: string;
@@ -107,14 +164,83 @@ export interface Translations {
     calcHeading: string;
     calcDesc: string;
   };
-  categories: {
-    paper: string;
-    cardboard: string;
-    plastic: string;
-    metal: string;
-    ewaste: string;
-    glass: string;
-    organic: string;
+  solarCalc: {
+    academicNoticeTitle: string;
+    academicNoticeDesc: string;
+    inputHeading: string;
+    inputDesc: string;
+    billLabel: string;
+    tariffLabel: string;
+    derivedConsumption: string;
+    roofAreaLabel: string;
+    locationLabel: string;
+    assumptionsTitle: string;
+    peakSunHours: string;
+    systemPerf: string;
+    areaFootprint: string;
+    turnkeyBenchmark: string;
+    longtermModel: string;
+    resultsBadge: string;
+    suitableCapacity: string;
+    roofRequired: string;
+    available: string;
+    spaceSufficient: string;
+    spaceConstrained: string;
+    monthlyGen: string;
+    displaces: string;
+    monthlySavings: string;
+    directReduction: string;
+    annualSavings: string;
+    year1: string;
+    paybackPeriod: string;
+    years: string;
+    breakEven: string;
+    outlookHeading: string;
+    benchmarkOutlay: string;
+    turnkeyEstimate: string;
+    modeledGain: string;
+    netGain: string;
+    co2Offset: string;
+    gridDisplaced: string;
+    requestConsultation: string;
+  };
+  profile: {
+    greenPoints: string;
+    lifetimePts: string;
+    ecoChampion: string;
+    activeMember: string;
+    rewardsTab: string;
+    accountTab: string;
+    rewardsCenter: string;
+    redeemHeading: string;
+    availableBalance: string;
+    emptyNotice: string;
+    earnedNotice: string;
+    accountSettings: string;
+    manageInfo: string;
+    demoNoticeTitle: string;
+    demoNoticeDesc: string;
+    profileDetails: string;
+    editInfo: string;
+    fullName: string;
+    emailAddress: string;
+    deptOrg: string;
+    campusLoc: string;
+    saveChanges: string;
+    cancel: string;
+    nameLabel: string;
+    emailLabel: string;
+    deptLabel: string;
+    locationLabel: string;
+    notSet: string;
+    signOut: string;
+    clearData: string;
+    platformName: string;
+    partner: string;
+    needsMorePts: string;
+    claimCode: string;
+    active: string;
+    redeemNow: string;
   };
 }
 
@@ -254,6 +380,94 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       bookDesc:
         'Choose a dry recyclable stream and book a courier slot. We will dispatch a driver with a calibrated scale.',
     },
+    categories: {
+      paper: 'Paper',
+      cardboard: 'Cardboard',
+      plastic: 'Plastic',
+      metal: 'Metal',
+      ewaste: 'E-waste',
+      glass: 'Glass',
+      organic: 'Organic',
+    },
+    categoryDetails: {
+      paper: {
+        name: 'Paper',
+        description: 'Dry notebooks, newspapers, office stationery, exam booklets, shredded paper.',
+        examples: 'Newspapers, office paper, notebooks, exam sheets',
+      },
+      cardboard: {
+        name: 'Cardboard',
+        description: 'Corrugated cartons, e-commerce delivery boxes, cereal boxes, paperboard.',
+        examples: 'Shipping boxes, delivery cartons, packaging board',
+      },
+      plastic: {
+        name: 'Plastic',
+        description: 'PET bottles, HDPE containers, cleaned packaging, wrappers & hard plastics.',
+        examples: 'Water bottles, milk jugs, shampoo bottles, clean food containers',
+      },
+      metal: {
+        name: 'Metal',
+        description: 'Beverage cans, scrap metal, copper wiring, tin food cans, aluminum trays.',
+        examples: 'Soda cans, aerosol cans, metal lids, aluminum trays',
+      },
+      ewaste: {
+        name: 'E-waste',
+        description: 'Old mobile phones, chargers, laptops, circuit boards, batteries, electronic cords.',
+        examples: 'Dead batteries, earphones, old routers, broken motherboards, cables',
+      },
+      glass: {
+        name: 'Glass',
+        description: 'Whole or crushed beverage bottles, laboratory glassware, glass jars.',
+        examples: 'Beverage bottles, cosmetic jars, sauce containers',
+      },
+      organic: {
+        name: 'Organic',
+        description: 'Cafeteria vegetable scraps, coffee grounds, garden clippings for composting.',
+        examples: 'Fruit peelings, vegetable trim, tea leaves, dry clippings',
+      },
+    },
+    wasteForm: {
+      categoryLabel: 'Waste Category',
+      quantityLabel: 'Estimated Quantity (kg)',
+      quickSelect: 'Quick select:',
+      estimatedReward: 'Estimated Reward',
+      creditedNotice: 'Credited on Completed Pickup',
+      greenPoints: 'GreenPoints',
+      environmentalImpact: 'Recovers recyclable material and prevents ~{co2} kg of landfill emissions.',
+      addressLabel: 'Pickup Address',
+      addressPlaceholder: 'Room number, building, floor or street address',
+      presets: 'Presets:',
+      preferredDate: 'Preferred Date',
+      preferredTime: 'Preferred Time Slot',
+      slotMorning: 'Morning (08:00 - 11:00)',
+      slotAfternoon: 'Afternoon (12:00 - 15:00)',
+      slotEvening: 'Evening (16:00 - 19:00)',
+      optionalNotes: 'Optional Notes',
+      notesPlaceholder: 'e.g. Leave with reception, call on arrival, segregated in marked boxes',
+      scheduleBtn: 'Schedule Waste Pickup',
+      footerNote: 'Your segregated waste collection request will be routed to localized recycling partners.',
+      errQuantity: 'Please specify a valid quantity greater than 0 kg.',
+      errAddress: 'Please provide a complete pickup address (at least 5 characters).',
+      errDate: 'Please select a preferred pickup date.',
+    },
+    wasteSidebar: {
+      rewardLogic: 'GreenPoints Reward Logic',
+      protocolTitle: 'Single-Credit Verification Protocol',
+      protocolDesc:
+        'Points are credited exactly once when a request transitions from Pending or Scheduled to Completed. This ensures simulation accuracy without duplicate awards.',
+      activePending: 'Active Pending / Scheduled:',
+      completedRewarded: 'Completed & Rewarded:',
+      currentBalance: 'Current Balance:',
+      recentActivity: 'Recent GreenPoints Activity',
+      noActivity: 'No recent activity logged yet.',
+      sortingChecklist: 'Sorting Checklist',
+      check1: 'Paper & Cardboard: Keep dry and flattened.',
+      check2: 'Plastic containers: Empty and lightly rinse.',
+      check3: 'E-waste: Keep cables and chargers grouped together.',
+      check4: 'Metal: Remove non-metal caps and residue.',
+      historyHeading: 'Waste Collection History',
+      historyDesc: 'Track submitted requests, review statuses, and manage your scheduled pickups.',
+    },
     solar: {
       service: 'Service 02',
       title: 'SolarSaathi',
@@ -266,14 +480,85 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       calcHeading: 'Solar Calculator Inputs',
       calcDesc: 'Adjust your electricity parameters to calculate rooftop solar feasibility.',
     },
-    categories: {
-      paper: 'Paper',
-      cardboard: 'Cardboard',
-      plastic: 'Plastic',
-      metal: 'Metal',
-      ewaste: 'E-waste',
-      glass: 'Glass',
-      organic: 'Organic',
+    solarCalc: {
+      academicNoticeTitle: 'Transparent Estimation Notice: ',
+      academicNoticeDesc:
+        'The metrics displayed below are theoretical models for academic and preliminary feasibility exploration based on regional solar irradiance. Figures are estimates and do not represent binding installation quotes, installer contracts, or guaranteed government subsidies.',
+      inputHeading: 'Solar Calculator Inputs',
+      inputDesc: 'Adjust your electricity parameters to calculate rooftop solar feasibility.',
+      billLabel: 'Monthly Electricity Bill (INR)',
+      tariffLabel: 'Electricity Tariff (INR per kWh)',
+      derivedConsumption: 'Derived monthly consumption:',
+      roofAreaLabel: 'Available Rooftop Area (sq ft)',
+      locationLabel: 'Location / State',
+      assumptionsTitle: 'Calculation Assumptions',
+      peakSunHours: 'Peak Sun Hours:',
+      systemPerf: 'System Performance Ratio: 78% (considers inverter efficiency, wiring losses, and temperature derating).',
+      areaFootprint: 'Area Footprint: ~90 sq ft per 1 kW capacity.',
+      turnkeyBenchmark: 'Turnkey Benchmark Cost: ~₹54,000 per kW benchmark.',
+      longtermModel: 'Long-term Model: 3.5% annual utility tariff inflation with 0.7% annual solar panel degradation.',
+      resultsBadge: 'Estimated Feasibility Results',
+      suitableCapacity: 'Suitable Solar Capacity',
+      roofRequired: 'Roof area required:',
+      available: 'Available:',
+      spaceSufficient: '✓ Roof Space Sufficient',
+      spaceConstrained: '⚠ Space Constrained (Capacity Adjusted)',
+      monthlyGen: 'Estimated Monthly Generation',
+      displaces: 'Displaces ~{percent}% of monthly usage',
+      monthlySavings: 'Estimated Monthly Savings',
+      directReduction: 'Direct reduction in utility bill',
+      annualSavings: 'Estimated Annual Savings',
+      year1: 'Year 1 annualized savings',
+      paybackPeriod: 'Approximate Payback Period',
+      years: 'Years',
+      breakEven: 'Estimated break-even against benchmark capex',
+      outlookHeading: 'INSTALLATION BENCHMARK & LIFETIME OUTLOOK',
+      benchmarkOutlay: 'Benchmark Outlay:',
+      turnkeyEstimate: 'Turnkey estimate',
+      modeledGain: '25-Yr Modeled Gain:',
+      netGain: 'Cumulative net gain',
+      co2Offset: 'Annual CO₂ Offset:',
+      gridDisplaced: 'Grid emissions displaced',
+      requestConsultation: 'Request Consultation',
+    },
+    profile: {
+      greenPoints: 'GreenPoints',
+      lifetimePts: 'Lifetime Pts',
+      ecoChampion: 'Eco Champion',
+      activeMember: 'Active Member',
+      rewardsTab: 'GreenPoints Rewards',
+      accountTab: 'Account & Profile',
+      rewardsCenter: 'GreenPoints Rewards Center',
+      redeemHeading: 'Redeem Points for Sustainable Perks',
+      availableBalance: 'Available Balance',
+      emptyNotice: 'Your GreenPoints balance will appear here once you complete eligible activities.',
+      earnedNotice: 'Points are earned exclusively upon verified waste collections.',
+      accountSettings: 'Account & Profile Settings',
+      manageInfo: 'Manage your personal information and browser data persistence.',
+      demoNoticeTitle: 'Frontend Demonstration Notice',
+      demoNoticeDesc:
+        'All profile entries and operational records are stored strictly within client-side browser storage (LocalStorage). This demonstration does not persist data to a remote production database and is not secured for enterprise authentication.',
+      profileDetails: 'Profile Details',
+      editInfo: 'Edit Information',
+      fullName: 'Full Name',
+      emailAddress: 'Email Address',
+      deptOrg: 'Department / Organization',
+      campusLoc: 'Campus / Location',
+      saveChanges: 'Save Changes',
+      cancel: 'Cancel',
+      nameLabel: 'Name:',
+      emailLabel: 'Email:',
+      deptLabel: 'Department:',
+      locationLabel: 'Location:',
+      notSet: 'Not set',
+      signOut: 'Sign Out',
+      clearData: 'Clear Stored Browser Data',
+      platformName: 'urjaTerra CleanTech Platform',
+      partner: 'Partner',
+      needsMorePts: 'Needs {pts} More Pts',
+      claimCode: 'Claimed! Code: ',
+      active: 'Active',
+      redeemNow: 'Redeem Now',
     },
   },
   Hi: {
@@ -411,6 +696,94 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       bookDesc:
         'सूखे कचरे की श्रेणी चुनें और पिकअप स्लॉट बुक करें। हम डिजिटल तराजू के साथ ड्राइवर भेजेंगे।',
     },
+    categories: {
+      paper: 'कागज़ (Paper)',
+      cardboard: 'गत्ता (Cardboard)',
+      plastic: 'प्लास्टिक (Plastic)',
+      metal: 'धातु (Metal)',
+      ewaste: 'ई-कचरा (E-Waste)',
+      glass: 'कांच (Glass)',
+      organic: 'जैविक (Organic)',
+    },
+    categoryDetails: {
+      paper: {
+        name: 'कागज़ (Paper)',
+        description: 'सूखी नोटबुक, समाचार पत्र, कार्यालय स्टेशनरी, परीक्षा पुस्तिकाएं, कटे हुए कागज़।',
+        examples: 'समाचार पत्र, कार्यालय कागज़, नोटबुक, परीक्षा शीट',
+      },
+      cardboard: {
+        name: 'गत्ता (Cardboard)',
+        description: 'नालीदार कार्टन, ई-कॉमर्स डिलीवरी बॉक्स, अनाज के डिब्बे, पैकेजिंग बोर्ड।',
+        examples: 'शिपिंग बॉक्स, डिलीवरी कार्टन, पैकेजिंग बोर्ड',
+      },
+      plastic: {
+        name: 'प्लास्टिक (Plastic)',
+        description: 'पीईटी बोतलें, एचडीपीई डिब्बे, साफ पैकेजिंग, रैपर और कठोर प्लास्टिक।',
+        examples: 'पानी की बोतलें, दूध के डिब्बे, शैम्पू की बोतलें, खाद्य कंटेनर',
+      },
+      metal: {
+        name: 'धातु (Metal)',
+        description: 'पेय के डिब्बे, स्क्रैप धातु, तांबे के तार, टिन के डिब्बे, एल्युमिनियम ट्रे।',
+        examples: 'सोडा के डिब्बे, धातु के ढक्कन, एल्युमिनियम ट्रे',
+      },
+      ewaste: {
+        name: 'ई-कचरा (E-Waste)',
+        description: 'पुराने मोबाइल फोन, चार्जर, लैपटॉप, सर्किट बोर्ड, बैटरी, इलेक्ट्रॉनिक तार।',
+        examples: 'खराब बैटरी, ईयरफोन, पुराने राउटर, टूटे मदरबोर्ड, केबल',
+      },
+      glass: {
+        name: 'कांच (Glass)',
+        description: 'साबुत या टूटी पेय की बोतलें, प्रयोगशाला कांच के बर्तन, कांच के जार।',
+        examples: 'पेय की बोतलें, कॉस्मेटिक जार, सॉस की बोतलें',
+      },
+      organic: {
+        name: 'जैविक (Organic)',
+        description: 'कैफेटेरिया सब्जी अवशेष, कॉफी पाउडर, खाद बनाने के लिए बगीचे की कतरनें।',
+        examples: 'फलों के छिलके, सब्जी के टुकड़े, चाय की पत्ती',
+      },
+    },
+    wasteForm: {
+      categoryLabel: 'अपशिष्ट श्रेणी',
+      quantityLabel: 'अनुमानित मात्रा (किलोग्राम)',
+      quickSelect: 'त्वरित चयन:',
+      estimatedReward: 'अनुमानित पुरस्कार',
+      creditedNotice: 'पिकअप पूर्ण होने पर क्रेडिट',
+      greenPoints: 'ग्रीनपॉइंट्स',
+      environmentalImpact: 'पुनर्चक्रण योग्य सामग्री बचाता है और ~{co2} किग्रा लैंडफिल उत्सर्जन रोकता है।',
+      addressLabel: 'पिकअप का पता',
+      addressPlaceholder: 'कमरा नंबर, भवन, मंजिल या सड़क का पूरा पता',
+      presets: 'सुझाए गए पते:',
+      preferredDate: 'पसंदीदा तारीख',
+      preferredTime: 'पसंदीदा समय स्लॉट',
+      slotMorning: 'सुबह (08:00 - 11:00)',
+      slotAfternoon: 'दोपहर (12:00 - 15:00)',
+      slotEvening: 'शाम (16:00 - 19:00)',
+      optionalNotes: 'अतिरिक्त निर्देश (वैकल्पिक)',
+      notesPlaceholder: 'उदा. रिसेप्शन पर छोड़ें, पहुंचने पर कॉल करें, डिब्बों में अलग रखा है',
+      scheduleBtn: 'कचरा पिकअप शेड्यूल करें',
+      footerNote: 'आपका सूखा कचरा संग्रह अनुरोध स्थानीय अधिकृत पुनर्चक्रण साझेदारों को भेजा जाएगा।',
+      errQuantity: 'कृपया 0 किग्रा से अधिक वैध मात्रा दर्ज करें।',
+      errAddress: 'कृपया पूरा पिकअप पता दर्ज करें (कम से कम 5 अक्षर)।',
+      errDate: 'कृपया पसंदीदा पिकअप तारीख चुनें।',
+    },
+    wasteSidebar: {
+      rewardLogic: 'ग्रीनपॉइंट्स रिवॉर्ड नियम',
+      protocolTitle: 'एकल-क्रेडिट सत्यापन प्रोटोकॉल',
+      protocolDesc:
+        'अनुरोध के पूरा (Completed) होने पर अंक केवल एक बार जमा किए जाते हैं। इससे बिना किसी दोहराव के सटीक संतुलन बना रहता है।',
+      activePending: 'सक्रिय लंबित / निर्धारित:',
+      completedRewarded: 'पूर्ण और पुरस्कृत:',
+      currentBalance: 'वर्तमान शेष:',
+      recentActivity: 'हाल की ग्रीनपॉइंट्स गतिविधि',
+      noActivity: 'अभी तक कोई गतिविधि दर्ज नहीं है।',
+      sortingChecklist: 'कचरा छंटाई चेकलिस्ट',
+      check1: 'कागज़ और गत्ता: सूखा और चपटा रखें।',
+      check2: 'प्लास्टिक कंटेनर: खाली करें और हल्का धो लें।',
+      check3: 'ई-कचरा: केबल और चार्जर एक साथ रखें।',
+      check4: 'धातु: गैर-धातु ढक्कन और अवशेष हटाएं।',
+      historyHeading: 'कचरा संग्रह इतिहास',
+      historyDesc: 'सबमिट किए गए अनुरोध देखें, स्थिति जांचें और पिकअप प्रबंधित करें।',
+    },
     solar: {
       service: 'सेवा 02',
       title: 'सोलर साथी',
@@ -423,14 +796,85 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       calcHeading: 'सोलर कैलकुलेटर इनपुट',
       calcDesc: 'रूफटॉप सोलर क्षमता की गणना करने के लिए अपने बिजली मापदंडों को समायोजित करें।',
     },
-    categories: {
-      paper: 'कागज़ (Paper)',
-      cardboard: 'गत्ता (Cardboard)',
-      plastic: 'प्लास्टिक (Plastic)',
-      metal: 'धातु (Metal)',
-      ewaste: 'ई-कचरा (E-Waste)',
-      glass: 'कांच (Glass)',
-      organic: 'जैविक (Organic)',
+    solarCalc: {
+      academicNoticeTitle: 'पारदर्शी अनुमान सूचना: ',
+      academicNoticeDesc:
+        'नीचे दिए गए आंकड़े स्थानीय सौर विकिरण पर आधारित सैद्धांतिक अनुमान हैं। ये आंकड़े बाध्यकारी स्थापना उद्धरण, अनुबंध या औपचारिक सरकारी सब्सिडी गारंटी नहीं हैं।',
+      inputHeading: 'सोलर कैलकुलेटर इनपुट',
+      inputDesc: 'रूफटॉप सोलर क्षमता की गणना करने के लिए अपने बिजली मापदंडों को समायोजित करें।',
+      billLabel: 'मासिक बिजली बिल (रुपये)',
+      tariffLabel: 'बिजली दर (रुपये प्रति यूनिट / kWh)',
+      derivedConsumption: 'मासिक अनुमानित खपत:',
+      roofAreaLabel: 'उपलब्ध छत का क्षेत्रफल (वर्ग फुट)',
+      locationLabel: 'स्थान / राज्य',
+      assumptionsTitle: 'गणना की मान्यताएं',
+      peakSunHours: 'दैनिक प्रभावी धूप घंटे:',
+      systemPerf: 'सिस्टम दक्षता अनुपात: 78% (इन्वर्टर दक्षता, वायरिंग नुकसान और तापमान पर आधारित)।',
+      areaFootprint: 'स्थान की आवश्यकता: ~90 वर्ग फुट प्रति 1 kW क्षमता।',
+      turnkeyBenchmark: 'टर्नकी मानक लागत: ~₹54,000 प्रति kW बेंचमार्क।',
+      longtermModel: 'दीर्घकालिक मॉडल: 3.5% वार्षिक बिजली मूल्य वृद्धि एवं 0.7% वार्षिक सोलर पैनल मूल्यह्रास।',
+      resultsBadge: 'अनुमानित व्यवहार्यता परिणाम',
+      suitableCapacity: 'उपयुक्त सोलर क्षमता',
+      roofRequired: 'आवश्यक छत क्षेत्र:',
+      available: 'उपलब्ध:',
+      spaceSufficient: '✓ छत का क्षेत्र पर्याप्त है',
+      spaceConstrained: '⚠ सीमित स्थान (क्षमता समायोजित)',
+      monthlyGen: 'अनुमानित मासिक उत्पादन',
+      displaces: 'मासिक बिजली उपयोग का ~{percent}% विस्थापित',
+      monthlySavings: 'अनुमानित मासिक बचत',
+      directReduction: 'बिजली बिल में सीधी कमी',
+      annualSavings: 'अनुमानित वार्षिक बचत',
+      year1: 'प्रथम वर्ष की वार्षिक बचत',
+      paybackPeriod: 'अनुमानित लागत वापसी अवधि',
+      years: 'वर्ष',
+      breakEven: 'मानक पूंजीगत व्यय पर अनुमानित ब्रेक-ईवन',
+      outlookHeading: 'स्थापना मानदंड एवं 25-वर्षीय दृष्टिकोण',
+      benchmarkOutlay: 'मानक स्थापना लागत:',
+      turnkeyEstimate: 'टर्नकी अनुमान',
+      modeledGain: '25-वर्षीय अनुमानित लाभ:',
+      netGain: 'संचयी शुद्ध लाभ',
+      co2Offset: 'वार्षिक कार्बन कमी:',
+      gridDisplaced: 'विस्थापित ग्रिड उत्सर्जन',
+      requestConsultation: 'परामर्श का अनुरोध करें',
+    },
+    profile: {
+      greenPoints: 'ग्रीनपॉइंट्स',
+      lifetimePts: 'कुल अर्जित अंक',
+      ecoChampion: 'इको चैंपियन',
+      activeMember: 'सक्रिय सदस्य',
+      rewardsTab: 'ग्रीनपॉइंट्स पुरस्कार',
+      accountTab: 'खाता और प्रोफ़ाइल',
+      rewardsCenter: 'ग्रीनपॉइंट्स रिवॉर्ड केंद्र',
+      redeemHeading: 'पर्यावरण-अनुकूल लाभों के लिए अंक भुनाएं',
+      availableBalance: 'उपलब्ध शेष',
+      emptyNotice: 'योग्य गतिविधियां पूरी करने पर आपके अंक यहां दिखाई देंगे।',
+      earnedNotice: 'अंक केवल सत्यापित कचरा संग्रह पर दिए जाते हैं।',
+      accountSettings: 'खाता एवं प्रोफ़ाइल सेटिंग्स',
+      manageInfo: 'अपनी व्यक्तिगत जानकारी और ब्राउज़र डेटा प्रबंधित करें।',
+      demoNoticeTitle: 'फ़्रंटएंड प्रदर्शन सूचना',
+      demoNoticeDesc:
+        'सभी प्रोफ़ाइल प्रविष्टियां और परिचालन रिकॉर्ड केवल क्लाइंट-साइड ब्राउज़र स्टोरेज (LocalStorage) में सुरक्षित हैं। यह प्रदर्शन डेटा को रिमोट डेटाबेस में सहेजता नहीं है।',
+      profileDetails: 'प्रोफ़ाइल विवरण',
+      editInfo: 'जानकारी संपादित करें',
+      fullName: 'पूरा नाम',
+      emailAddress: 'ईमेल पता',
+      deptOrg: 'विभाग / संगठन',
+      campusLoc: 'परिसर / स्थान',
+      saveChanges: 'बदलाव सहेजें',
+      cancel: 'रद्द करें',
+      nameLabel: 'नाम:',
+      emailLabel: 'ईमेल:',
+      deptLabel: 'विभाग:',
+      locationLabel: 'स्थान:',
+      notSet: 'दर्ज नहीं',
+      signOut: 'साइन आउट',
+      clearData: 'ब्राउज़र डेटा साफ़ करें',
+      platformName: 'urjaTerra क्लीनटेक प्लेटफ़ॉर्म',
+      partner: 'साझेदार',
+      needsMorePts: '{pts} और अंक चाहिए',
+      claimCode: 'दावा किया गया! कोड: ',
+      active: 'सक्रिय',
+      redeemNow: 'अभी भुनाएं',
     },
   },
 };
