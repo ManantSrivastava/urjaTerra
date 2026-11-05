@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 
 export default function SmartWastePage() {
-  const { pickups, userProfile, activities, isHydrated } = useEarthSync();
+  const { pickups, userProfile, activities, isHydrated, t, language } = useEarthSync();
   const [activeTab, setActiveTab] = useState<'schedule' | 'history'>('schedule');
 
   const completedCount = pickups.filter((p) => p.status === 'Collected').length;
@@ -59,13 +59,13 @@ export default function SmartWastePage() {
         <div className="space-y-1.5">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-semibold bg-[#00B884]/10 text-[#063D2E] border border-[#00B884]/25">
             <Recycle className="w-3.5 h-3.5 text-[#00B884]" />
-            <span>Service 01</span>
+            <span>{t.waste.service}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#17231E] tracking-tight">
-            Smart Waste Management
+            {t.waste.title}
           </h1>
           <p className="text-sm text-[#65736B] max-w-2xl leading-relaxed">
-            Make recyclable waste easier to organize, collect, and track.
+            {t.waste.subtitle}
           </p>
         </div>
 
@@ -73,16 +73,16 @@ export default function SmartWastePage() {
         <div className="bg-[#063D2E] text-white p-5 rounded-lg border border-[#042E24] shrink-0 min-w-[200px]">
           <div className="flex items-center justify-between gap-2 mb-1">
             <span className="text-[10px] text-white/70 uppercase tracking-wider font-semibold">
-              GreenPoints Balance
+              {language === 'Hi' ? 'ग्रीनपॉइंट्स बैलेंस' : 'GreenPoints Balance'}
             </span>
             <Sparkles className="w-3.5 h-3.5 text-[#FFB800]" />
           </div>
           <div className="text-2xl font-bold text-[#FFB800]">
             {isHydrated ? userProfile.greenPointsBalance.toLocaleString() : '0'}{' '}
-            <span className="text-xs font-normal text-white/70">pts</span>
+            <span className="text-xs font-normal text-white/70">{t.nav.pts}</span>
           </div>
           <p className="text-[11px] text-white/80 mt-1">
-            Awarded only upon completed, verified pickups.
+            {language === 'Hi' ? 'केवल सत्यापित पिकअप पर दिए जाते हैं।' : 'Awarded only upon completed, verified pickups.'}
           </p>
         </div>
       </div>
@@ -92,10 +92,10 @@ export default function SmartWastePage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <h2 className="font-bold text-[#17231E] text-sm flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-[#00B884]" />
-            <span>Accepted Recyclable Streams & GreenPoints Rates</span>
+            <span>{language === 'Hi' ? 'स्वीकृत पुनर्चक्रण श्रेणियां और दरें' : 'Accepted Recyclable Streams & GreenPoints Rates'}</span>
           </h2>
           <span className="text-xs text-[#65736B]">
-            Earning rates: Credited exclusively upon verified pickup completion
+            {language === 'Hi' ? 'सत्यापित पिकअप पूर्ण होने पर तुरंत क्रेडिट' : 'Earning rates: Credited exclusively upon verified pickup completion'}
           </span>
         </div>
 
@@ -110,13 +110,15 @@ export default function SmartWastePage() {
                   <div className="p-1.5 rounded bg-white border border-[#E2E9E3]">
                     {getCategoryIcon(cat.id)}
                   </div>
-                  <span className="font-semibold text-xs text-[#17231E] truncate">{cat.name}</span>
+                  <span className="font-semibold text-xs text-[#17231E] truncate">
+                    {t.categories[cat.id as keyof typeof t.categories] || cat.name}
+                  </span>
                 </div>
                 <p className="text-[11px] text-[#65736B] line-clamp-2">{cat.description}</p>
               </div>
               <div className="mt-3 pt-2 border-t border-[#E2E9E3] flex items-center justify-between">
                 <span className="text-xs font-bold text-[#063D2E]">
-                  +{cat.pointsPerKg} pts/kg
+                  +{cat.pointsPerKg} {t.nav.pts}/kg
                 </span>
                 <span className="text-[10px] text-[#65736B]">~{cat.co2SavedPerKg}kg CO₂</span>
               </div>
@@ -136,7 +138,7 @@ export default function SmartWastePage() {
           }`}
         >
           <CalendarPlus className="w-4 h-4" />
-          <span>Waste Request Form</span>
+          <span>{t.waste.tabBook}</span>
         </button>
 
         <button
@@ -148,7 +150,7 @@ export default function SmartWastePage() {
           }`}
         >
           <History className="w-4 h-4" />
-          <span>Request History</span>
+          <span>{t.waste.tabPickups}</span>
           <span
             className={`text-[11px] px-1.5 py-0.2 rounded font-bold ${
               activeTab === 'history' ? 'bg-[#042E24] text-white' : 'bg-[#E2E9E3] text-[#17231E]'
@@ -165,9 +167,9 @@ export default function SmartWastePage() {
           {/* Main Form (8 cols) */}
           <div className="lg:col-span-8 bg-white rounded-lg border border-[#E2E9E3] p-6 sm:p-8">
             <div className="mb-6 pb-4 border-b border-[#E2E9E3]">
-              <h2 className="text-base font-bold text-[#17231E]">Submit Recyclable Waste Request</h2>
+              <h2 className="text-base font-bold text-[#17231E]">{t.waste.bookHeading}</h2>
               <p className="text-xs text-[#65736B] mt-0.5">
-                Fill out the request below to schedule a segregated dry waste collection slot.
+                {t.waste.bookDesc}
               </p>
             </div>
 

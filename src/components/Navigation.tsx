@@ -18,9 +18,8 @@ import {
 
 export const Navigation: React.FC = () => {
   const pathname = usePathname();
-  const { userProfile, isHydrated } = useEarthSync();
+  const { userProfile, isHydrated, language, setLanguage, t } = useEarthSync();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [language, setLanguage] = useState<'En' | 'Hi'>('En');
   const [langMenuOpen, setLangMenuOpen] = useState(false);
 
   const isAdminPage = pathname === '/admin' || pathname.startsWith('/admin/');
@@ -38,10 +37,10 @@ export const Navigation: React.FC = () => {
   };
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Smart Waste', href: '/waste' },
-    { name: 'SolarSaathi', href: '/solar' },
-    { name: 'About', href: '/#about' },
+    { name: t.nav.home, href: '/' },
+    { name: t.nav.waste, href: '/waste' },
+    { name: t.nav.solar, href: '/solar' },
+    { name: t.nav.about, href: '/#about' },
   ];
 
   const isActive = (href: string) => {
@@ -126,7 +125,7 @@ export const Navigation: React.FC = () => {
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#063D2E] text-white text-xs font-bold shadow-2xs">
                   <ShieldCheck className="w-3.5 h-3.5 text-[#00B884]" />
-                  <span>Admin</span>
+                  <span>{t.nav.admin}</span>
                 </div>
                 <button
                   onClick={handleAdminLogout}
@@ -134,7 +133,7 @@ export const Navigation: React.FC = () => {
                   title="Log Out of Admin Portal"
                 >
                   <LogOut className="w-3.5 h-3.5 text-[#6B7280] group-hover:text-rose-600 transition-colors" />
-                  <span>Log Out</span>
+                  <span>{t.nav.logOut}</span>
                 </button>
               </div>
             ) : (
@@ -146,7 +145,7 @@ export const Navigation: React.FC = () => {
                   title="GreenPoints Balance"
                 >
                   <Sun className="w-3.5 h-3.5 text-[#FFB800] fill-[#FFB800]" />
-                  <span className="text-[12px]">{isHydrated ? userProfile.greenPointsBalance.toLocaleString() : '0'} pts</span>
+                  <span className="text-[12px]">{isHydrated ? userProfile.greenPointsBalance.toLocaleString() : '0'} {t.nav.pts}</span>
                 </Link>
 
                 {/* Profile or Sign In Link */}
@@ -157,7 +156,7 @@ export const Navigation: React.FC = () => {
                     title="Account Profile"
                   >
                     <User className="w-3.5 h-3.5 text-[#00A86B]" />
-                    <span className="text-[12px]">{userProfile.name ? userProfile.name.split(' ')[0] : 'Profile'}</span>
+                    <span className="text-[12px]">{userProfile.name ? userProfile.name.split(' ')[0] : t.nav.profile}</span>
                   </Link>
                 ) : (
                   <Link
@@ -166,7 +165,7 @@ export const Navigation: React.FC = () => {
                     title="Sign In"
                   >
                     <User className="w-3.5 h-3.5 text-[#6B7280]" />
-                    <span className="text-[12px]">Sign In</span>
+                    <span className="text-[12px]">{t.nav.signIn}</span>
                   </Link>
                 )}
               </>
@@ -182,7 +181,7 @@ export const Navigation: React.FC = () => {
                 title="Admin Log Out"
               >
                 <ShieldCheck className="w-3 h-3 text-[#00B884]" />
-                <span>Admin</span>
+                <span>{t.nav.admin}</span>
                 <LogOut className="w-3 h-3 ml-1 text-emerald-300" />
               </button>
             ) : (
@@ -238,7 +237,7 @@ export const Navigation: React.FC = () => {
                   className="w-full text-center py-2 px-3 rounded-md bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-700 hover:bg-rose-100 flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <LogOut className="w-3.5 h-3.5" />
-                  <span>Log Out (Admin Portal)</span>
+                  <span>{t.nav.logOut} ({t.nav.admin})</span>
                 </button>
               ) : isHydrated && userProfile.email ? (
                 <Link
@@ -247,7 +246,7 @@ export const Navigation: React.FC = () => {
                   className="w-full text-center py-2 px-3 rounded-md border border-[#E2E9E3] text-xs font-medium text-[#17231E] hover:bg-white flex items-center justify-center gap-1.5"
                 >
                   <User className="w-3.5 h-3.5 text-[#00A86B]" />
-                  <span>My Profile</span>
+                  <span>{t.nav.myProfile}</span>
                 </Link>
               ) : (
                 <Link
@@ -256,7 +255,7 @@ export const Navigation: React.FC = () => {
                   className="w-full text-center py-2 px-3 rounded-md border border-[#E2E9E3] text-xs font-medium text-[#17231E] hover:bg-white flex items-center justify-center gap-1.5"
                 >
                   <User className="w-3.5 h-3.5 text-[#6B7280]" />
-                  <span>Sign In / Register</span>
+                  <span>{t.nav.signIn}</span>
                 </Link>
               )}
             </div>

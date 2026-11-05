@@ -14,6 +14,7 @@ import {
   WASTE_CATEGORIES,
   REWARD_ITEMS 
 } from '@/data/constants';
+import { Language, TRANSLATIONS, Translations } from '@/i18n/translations';
 
 interface Toast {
   id: string;
@@ -30,6 +31,9 @@ interface EarthSyncContextType {
   redeemedRewards: string[];
   toasts: Toast[];
   isHydrated: boolean;
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  t: Translations;
   addPickup: (data: {
     category: WasteCategoryId;
     quantityKg: number;
@@ -87,6 +91,7 @@ const DEFAULT_PROFILE: UserProfile = {
 };
 
 export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
+  const [language, setLanguageState] = useState<Language>('En');
   const [pickups, setPickups] = useState<PickupRequest[]>([]);
   const [solarEnquiries, setSolarEnquiries] = useState<SolarEnquiry[]>([]);
   const [activities, setActivities] = useState<ActivityItem[]>([]);
@@ -112,6 +117,11 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
   // Safe localStorage Hydration
   useEffect(() => {
     try {
+      const storedLang = (localStorage.getItem('urjaterra_language') || localStorage.getItem('earthsync_language')) as Language | null;
+      if (storedLang === 'En' || storedLang === 'Hi') {
+        setLanguageState(storedLang);
+      }
+
       const storedInit = localStorage.getItem(STORAGE_KEYS.INITIALIZED) || localStorage.getItem(LEGACY_STORAGE_KEYS.INITIALIZED);
       
       if (!storedInit) {
@@ -509,6 +519,18 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
     // No-op for demo baseline removal
   };
 
+  const setLanguage = useCallback((lang: Language) => {
+    setLanguageState(lang);
+    try {
+      localStorage.setItem('urjaterra_language', lang);
+      localStorage.setItem('earthsync_language', lang);
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  const t = TRANSLATIONS[language] || TRANSLATIONS.En;
+
   return (
     <EarthSyncContext.Provider
       value={{
@@ -519,6 +541,9 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
         redeemedRewards,
         toasts,
         isHydrated,
+        language,
+        setLanguage,
+        t,
         addPickup,
         cancelPickup,
         updatePickupStatus,

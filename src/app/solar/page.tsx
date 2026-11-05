@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 export default function SolarSaathiPage() {
-  const { solarEnquiries } = useEarthSync();
+  const { solarEnquiries, t, language } = useEarthSync();
   const [activeTab, setActiveTab] = useState<'calculator' | 'subsidies' | 'enquiries'>('calculator');
   const [enquiryModalOpen, setEnquiryModalOpen] = useState(false);
   const [modalInitialData, setModalInitialData] = useState({
@@ -46,9 +46,10 @@ export default function SolarSaathiPage() {
       <div className="flex items-start gap-3 p-4 rounded-lg bg-white border border-[#E2E9E3] text-xs text-[#65736B]">
         <Info className="w-4 h-4 text-[#063D2E] shrink-0 mt-0.5" />
         <div className="leading-relaxed">
-          <strong className="text-[#17231E]">CleanTech Academic Feasibility Engine: </strong>
-          SolarSaathi provides mathematical rooftop solar estimations using standard insolation averages. 
-          <span className="text-[#17231E]"> Figures are estimates and not binding quotes or formal government subsidy guarantees.</span>
+          <strong className="text-[#17231E]">
+            {language === 'Hi' ? 'क्लीनटेक अकादमिक व्यवहार्यता इंजन: ' : 'CleanTech Academic Feasibility Engine: '}
+          </strong>
+          {t.solar.academicNotice}
         </div>
       </div>
 
@@ -57,13 +58,13 @@ export default function SolarSaathiPage() {
         <div className="space-y-1.5">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-semibold bg-[#FFB800]/15 text-[#17231E] border border-[#FFB800]/40">
             <Sun className="w-3.5 h-3.5 text-[#FFB800]" />
-            <span>Service 02</span>
+            <span>{t.solar.service}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#17231E] tracking-tight">
-            SolarSaathi
+            {t.solar.title}
           </h1>
           <p className="text-sm text-[#65736B] max-w-2xl leading-relaxed">
-            Understand your rooftop&apos;s solar potential.
+            {t.solar.subtitle}
           </p>
         </div>
       </div>
@@ -79,7 +80,7 @@ export default function SolarSaathiPage() {
           }`}
         >
           <Calculator className="w-4 h-4" />
-          <span>Solar Calculator</span>
+          <span>{t.solar.tabCalc}</span>
         </button>
 
         <button
@@ -91,7 +92,7 @@ export default function SolarSaathiPage() {
           }`}
         >
           <ShieldCheck className="w-4 h-4" />
-          <span>Subsidy Benchmarks</span>
+          <span>{t.solar.tabSubsidies}</span>
         </button>
 
         <button
@@ -103,7 +104,7 @@ export default function SolarSaathiPage() {
           }`}
         >
           <Compass className="w-4 h-4" />
-          <span>Saved Enquiries ({solarEnquiries.length})</span>
+          <span>{t.solar.tabEnquiries} ({solarEnquiries.length})</span>
         </button>
       </div>
 
