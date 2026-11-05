@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEarthSync } from '@/context/EarthSyncContext';
+import { Logo } from '@/components/Logo';
 import { 
-  Leaf, 
   Menu, 
   X, 
   Sun,
@@ -58,12 +58,8 @@ export const Navigation: React.FC = () => {
           
           {/* Left: urjaTerra Logo & Language selector */}
           <div className="flex items-center gap-3 sm:gap-4 shrink-0">
-            <Link href="/" className="flex items-center gap-2 group shrink-0">
-              {/* Clean tilted green leaf icon from design */}
-              <Leaf className="w-6 h-6 text-[#00A86B] fill-[#00A86B] transition-transform group-hover:scale-105" />
-              <span className="text-xl font-bold tracking-tight text-[#063D2E]">
-                urja<span className="text-[#00A86B]">Terra</span>
-              </span>
+            <Link href="/" className="flex items-center group shrink-0" aria-label="urjaTerra Home">
+              <Logo variant="full" className="h-8 sm:h-9 w-auto transition-transform group-hover:scale-102" />
             </Link>
 
             {/* Language Selector Dropdown */}

@@ -1,16 +1,96 @@
 @import "tailwindcss";
 
+:root {
+  /* Brand */
+  --brand-forest: #063D2E;
+  --brand-emerald: #00B884;
+  --brand-solar: #FFB800;
+  --brand-warm-white: #F8FAF7;
+  --brand-charcoal: #17231E;
+
+  /* Light theme */
+  --background: #F8FAF7;
+  --surface: #FFFFFF;
+  --border: #DFE6E0;
+  --foreground: #17231E;
+  --muted: #55645C;
+  --primary: #063D2E;
+  --primary-foreground: #F8FAF7;
+  --accent: #00B884;
+  --accent-text: #007A58;   /* use for small green text and links on light */
+  --highlight: #FFB800;     /* small accent only */
+  --highlight-foreground: #17231E;
+
+  /* Logo */
+  --logo-ring: #063D2E;
+  --logo-leaf: #00B884;
+  --logo-vein: #F8FAF7;
+  --logo-sun: #FFB800;
+  --logo-text: #063D2E;
+  --logo-accent: #00B884;
+
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.dark {
+  /* Dark theme */
+  --background: #0D1914;
+  --surface: #13241D;
+  --feature-surface: #063D2E; /* optional hero or feature cards */
+  --border: #24382F;
+  --foreground: #F8FAF7;
+  --muted: #9FB0A6;
+  --primary: #00B884;
+  --primary-foreground: #063D2E;
+  --accent: #00B884;
+  --accent-text: #00B884;
+  --highlight: #FFB800;
+  --highlight-foreground: #17231E;
+
+  /* Logo */
+  --logo-ring: #F8FAF7;
+  --logo-leaf: #00B884;
+  --logo-vein: #0D1914;
+  --logo-sun: #FFB800;
+  --logo-text: #F8FAF7;
+  --logo-accent: #00B884;
+
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
+}
+
 @theme {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-feature-surface: var(--feature-surface);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
+
+  /* Brand tokens */
+  --color-brand-forest: #063D2E;
+  --color-brand-emerald: #00B884;
+  --color-brand-solar: #FFB800;
+  --color-brand-warm-white: #F8FAF7;
+  --color-brand-charcoal: #17231E;
+
+  /* Retain semantic forest & solar shades for backward compatibility */
   --color-forest: #063D2E;
   --color-forest-dark: #042E24;
   --color-emerald-brand: #00B884;
   --color-solar: #FFB800;
   --color-warm-white: #F8FAF7;
   --color-charcoal: #17231E;
-  --color-muted: #65736B;
   --color-border-subtle: #E2E9E3;
 
-  /* Retain semantic forest & solar shades for backward compatibility */
   --color-forest-950: #042E24;
   --color-forest-900: #063D2E;
   --color-forest-800: #094F3C;
@@ -27,15 +107,6 @@
   --color-solar-50: #FFFDF5;
 }
 
-:root {
-  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --background: #F8FAF7;
-  --foreground: #17231E;
-  --card: #FFFFFF;
-  --card-foreground: #17231E;
-  --border: #E2E9E3;
-}
-
 body {
   background-color: var(--background);
   color: var(--foreground);
@@ -50,14 +121,14 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F8FAF7;
+  background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: #E2E9E3;
+  background: var(--border);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #65736B;
+  background: var(--muted);
 }
 
 /* Smooth continuous rotation for windmills */

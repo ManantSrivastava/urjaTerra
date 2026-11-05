@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEarthSync } from '@/context/EarthSyncContext';
-import { Leaf, LogIn, Lock, Mail, User, MapPin, AlertCircle, ShieldAlert, ArrowRight } from 'lucide-react';
+import { Logo } from '@/components/Logo';
+import { LogIn, Lock, Mail, User, MapPin, AlertCircle, ShieldAlert, ArrowRight } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -50,11 +51,8 @@ export default function LoginPage() {
         
         {/* Branding & Header */}
         <div className="text-center space-y-2">
-          <Link href="/" className="inline-flex items-center gap-2 group">
-            <Leaf className="w-8 h-8 text-[#00A86B] fill-[#00A86B] transition-transform group-hover:scale-105" />
-            <span className="text-2xl font-bold tracking-tight text-[#063D2E]">
-              urja<span className="text-[#00A86B]">Terra</span>
-            </span>
+          <Link href="/" className="inline-flex items-center group" aria-label="urjaTerra Home">
+            <Logo variant="full" className="h-10 w-auto transition-transform group-hover:scale-102" />
           </Link>
           <h1 className="text-2xl font-bold tracking-tight text-[#17231E]">
             Sign in to your account
