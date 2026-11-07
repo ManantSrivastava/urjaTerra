@@ -2,22 +2,19 @@
 
 import React from 'react';
 import { useEarthSync } from '@/context/EarthSyncContext';
-import { SolarMaintenanceBooking, MaintenanceStatus } from '@/types';
+import { SolarMaintenanceBooking } from '@/types';
 import { 
   Wrench, 
   Calendar, 
   Clock, 
   MapPin, 
-  Phone, 
   User, 
   Zap, 
   CheckCircle2, 
-  AlertCircle, 
   XCircle, 
   Truck, 
   Trash2, 
-  Plus, 
-  ShieldCheck 
+  Plus 
 } from 'lucide-react';
 
 interface Props {

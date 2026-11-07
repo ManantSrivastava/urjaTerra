@@ -1,11 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useEarthSync } from '@/context/EarthSyncContext';
-import { 
-  SOLAR_MAINTENANCE_SERVICES, 
-  MaintenanceServiceInfo 
-} from '@/data/constants';
+import { SOLAR_MAINTENANCE_SERVICES } from '@/data/constants';
 import { MaintenanceServiceType, TimeSlot } from '@/types';
 import { 
   Wrench, 
@@ -78,13 +75,20 @@ export const SolarMaintenanceForm: React.FC<Props> = ({ onSuccess, onCancel }) =
   const [serviceAddress, setServiceAddress] = useState('');
   const [city, setCity] = useState(userProfile.campusLocation || 'Pune / Maharashtra');
   
-  // Default to tomorrow's date
-  const tomorrowStr = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-  const [preferredDate, setPreferredDate] = useState(tomorrowStr);
+  const [minDate, setMinDate] = useState('');
+  const [preferredDate, setPreferredDate] = useState('');
   const [timeSlot, setTimeSlot] = useState<TimeSlot>('Morning (08:00 - 11:00)');
   const [notes, setNotes] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const dateStr = tomorrow.toISOString().split('T')[0];
+    setMinDate(dateStr);
+    setPreferredDate(dateStr);
+  }, []);
 
   // Active package details
   const activePackage = SOLAR_MAINTENANCE_SERVICES.find((s) => s.id === selectedService) || SOLAR_MAINTENANCE_SERVICES[0];
@@ -408,7 +412,7 @@ export const SolarMaintenanceForm: React.FC<Props> = ({ onSuccess, onCancel }) =
                 <input
                   type="date"
                   required
-                  min={tomorrowStr}
+                  min={minDate}
                   value={preferredDate}
                   onChange={(e) => setPreferredDate(e.target.value)}
                   className="w-full pl-9 pr-3 py-2 text-xs rounded-lg border border-[#E2E9E3] bg-white text-[#17231E] focus:outline-hidden focus:ring-1 focus:ring-[#063D2E]"
