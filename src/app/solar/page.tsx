@@ -6,17 +6,24 @@ import { SolarCalculator } from '@/components/SolarCalculator';
 import { SolarEnquiryForm } from '@/components/SolarEnquiryForm';
 import { SolarEnquiryList } from '@/components/SolarEnquiryList';
 import { SolarSubsidyGuide } from '@/components/SolarSubsidyGuide';
+import { SolarMaintenanceForm } from '@/components/SolarMaintenanceForm';
+import { SolarMaintenanceList } from '@/components/SolarMaintenanceList';
 import { 
   Sun, 
   Calculator, 
   ShieldCheck, 
   Compass, 
-  Info
+  Info,
+  Wrench,
+  Plus
 } from 'lucide-react';
 
 export default function SolarSaathiPage() {
-  const { solarEnquiries, t, language } = useEarthSync();
-  const [activeTab, setActiveTab] = useState<'calculator' | 'subsidies' | 'enquiries'>('calculator');
+  const { solarEnquiries, maintenanceBookings, t, language } = useEarthSync();
+  const safeEnquiries = solarEnquiries || [];
+  const safeMaintenance = maintenanceBookings || [];
+  const [activeTab, setActiveTab] = useState<'calculator' | 'subsidies' | 'enquiries' | 'maintenance'>('calculator');
+  const [maintenanceView, setMaintenanceView] = useState<'form' | 'list'>('form');
   const [enquiryModalOpen, setEnquiryModalOpen] = useState(false);
   const [modalInitialData, setModalInitialData] = useState({
     capacityKw: 3.5,
@@ -104,7 +111,26 @@ export default function SolarSaathiPage() {
           }`}
         >
           <Compass className="w-4 h-4" />
-          <span>{t.solar.tabEnquiries} ({solarEnquiries.length})</span>
+          <span>{t.solar.tabEnquiries} ({safeEnquiries.length})</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('maintenance')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-md text-xs sm:text-sm font-semibold transition-colors cursor-pointer ${
+            activeTab === 'maintenance'
+              ? 'bg-[#063D2E] text-white'
+              : 'text-[#65736B] hover:bg-white hover:text-[#17231E]'
+          }`}
+        >
+          <Wrench className="w-4 h-4" />
+          <span>{t.solar.tabMaintenance}</span>
+          {safeMaintenance.length > 0 && (
+            <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
+              activeTab === 'maintenance' ? 'bg-white text-[#063D2E]' : 'bg-[#063D2E] text-white'
+            }`}>
+              {safeMaintenance.length}
+            </span>
+          )}
         </button>
       </div>
 
@@ -112,6 +138,50 @@ export default function SolarSaathiPage() {
       {activeTab === 'calculator' && <SolarCalculator onOpenEnquiry={handleOpenEnquiry} />}
       {activeTab === 'subsidies' && <SolarSubsidyGuide />}
       {activeTab === 'enquiries' && <SolarEnquiryList onCalculateSolar={() => setActiveTab('calculator')} />}
+      
+      {activeTab === 'maintenance' && (
+        <div className="space-y-6">
+          {/* Sub-view switcher between Booking Form & Bookings List */}
+          <div className="flex items-center justify-between bg-white p-2.5 rounded-lg border border-[#E2E9E3]">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setMaintenanceView('form')}
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer ${
+                  maintenanceView === 'form'
+                    ? 'bg-[#063D2E] text-white'
+                    : 'text-[#65736B] hover:bg-stone-100 hover:text-[#17231E]'
+                }`}
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>{t.solarMaintenance.bookService}</span>
+              </button>
+
+              <button
+                onClick={() => setMaintenanceView('list')}
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer ${
+                  maintenanceView === 'list'
+                    ? 'bg-[#063D2E] text-white'
+                    : 'text-[#65736B] hover:bg-stone-100 hover:text-[#17231E]'
+                }`}
+              >
+                <Wrench className="w-3.5 h-3.5" />
+                <span>{t.solarMaintenance.viewBookings} ({safeMaintenance.length})</span>
+              </button>
+            </div>
+
+            <span className="text-[11px] text-[#65736B] hidden sm:inline-block">
+              {language === 'Hi' ? 'सोलर साथी ऑन-साइट सर्विसिंग' : 'SolarSaathi On-Site Field Service'}
+            </span>
+          </div>
+
+          {/* Render selected view */}
+          {maintenanceView === 'form' ? (
+            <SolarMaintenanceForm onSuccess={() => setMaintenanceView('list')} />
+          ) : (
+            <SolarMaintenanceList onBookNew={() => setMaintenanceView('form')} />
+          )}
+        </div>
+      )}
 
       {/* Modal for Enquiry Form */}
       {enquiryModalOpen && (

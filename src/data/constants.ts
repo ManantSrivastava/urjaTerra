@@ -1,4 +1,4 @@
-import { WasteCategoryInfo, RewardItem } from '@/types';
+import { WasteCategoryInfo, RewardItem, MaintenanceServiceType } from '@/types';
 
 export const WASTE_CATEGORIES: WasteCategoryInfo[] = [
   {
@@ -148,3 +148,61 @@ export const REFERRAL_CONFIG = {
   referredRewardPoints: 50,  // New user welcome bonus after 1st verified collection
   codePrefix: 'UT',
 };
+
+export interface MaintenanceServiceInfo {
+  id: MaintenanceServiceType;
+  title: string;
+  badge: string;
+  description: string;
+  baseFeeInr: number;
+  durationEst: string;
+  benefits: string[];
+}
+
+export const SOLAR_MAINTENANCE_SERVICES: MaintenanceServiceInfo[] = [
+  {
+    id: 'Panel Deep Cleaning & De-soiling',
+    title: 'Panel Deep Cleaning & De-soiling',
+    badge: 'High Yield Recovery',
+    description: 'Demineralized water wash, soft microfiber brushing, bird dropping removal, and anti-static dust repelling treatment.',
+    baseFeeInr: 499,
+    durationEst: '1.5 - 2 Hours',
+    benefits: ['Restores up to 25% lost energy yield', 'Scratch-free anti-static de-dusting', 'Drainage and runoff gutter clearance'],
+  },
+  {
+    id: 'Inverter & Electrical Health Check',
+    title: 'Inverter & Electrical Health Check',
+    badge: 'Safety Certified',
+    description: 'Full inspection of solar string inverters/micro-inverters, DC isolators, fuse ratings, AC/DC distribution boxes, and grid sync voltage.',
+    baseFeeInr: 799,
+    durationEst: '1 - 1.5 Hours',
+    benefits: ['Error code diagnostic & firmware check', 'DC terminal tightening & heat scan', 'Grid synchronisation frequency calibration'],
+  },
+  {
+    id: 'Full System Audit & Thermal Imaging',
+    title: 'Full System Audit & Thermal Imaging',
+    badge: 'Engineering Grade',
+    description: 'Infrared thermal camera scan for hot spots, micro-cracks in cells, bypassed bypass diodes, and mounting structure rust check.',
+    baseFeeInr: 1299,
+    durationEst: '2 - 3 Hours',
+    benefits: ['FLIR thermal hot spot detection', 'Digital health audit report with photos', 'Structural torque & tilt angle verification'],
+  },
+  {
+    id: 'Wiring & Earthing Safety Inspection',
+    title: 'Wiring & Earthing Safety Inspection',
+    badge: 'Discom & Fire Safe',
+    description: 'Earth resistance test (under 5 Ohms benchmark), lightning arrestor inspection, UV damaged cable replacement, and surge protection health check.',
+    baseFeeInr: 699,
+    durationEst: '1 - 2 Hours',
+    benefits: ['Earth pit resistance measurement', 'Lightning arrestor spark gap check', 'Rodent damage protection assessment'],
+  },
+  {
+    id: 'Comprehensive Annual AMC',
+    title: 'Comprehensive Annual AMC (4 Visits)',
+    badge: '365-Day Peace of Mind',
+    description: 'Complete year-round package: 4 seasonal deep cleanings, 2 electrical inspections, 1 full thermal audit, and on-demand emergency callout within 24 hours.',
+    baseFeeInr: 2499,
+    durationEst: 'Full Year Coverage',
+    benefits: ['4 scheduled quarterly visits', 'Free priority breakdown visit', '15% discount on replacement parts'],
+  },
+];

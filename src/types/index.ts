@@ -107,7 +107,33 @@ export interface ActivityItem {
   title: string;
   description: string;
   timestamp: string;
-  type: 'waste_pickup' | 'waste_collected' | 'solar_enquiry' | 'reward_redeemed' | 'referral_bonus' | 'system';
+  type: 'waste_pickup' | 'waste_collected' | 'solar_enquiry' | 'solar_maintenance' | 'reward_redeemed' | 'referral_bonus' | 'system';
+}
+
+export type MaintenanceServiceType = 
+  | 'Panel Deep Cleaning & De-soiling'
+  | 'Inverter & Electrical Health Check'
+  | 'Full System Audit & Thermal Imaging'
+  | 'Wiring & Earthing Safety Inspection'
+  | 'Comprehensive Annual AMC';
+
+export type MaintenanceStatus = 'Booked' | 'Technician Assigned' | 'Completed' | 'Cancelled';
+
+export interface SolarMaintenanceBooking {
+  id: string;
+  fullName: string;
+  phone: string;
+  email: string;
+  serviceAddress: string;
+  city: string;
+  systemCapacityKw: number;
+  serviceType: MaintenanceServiceType;
+  preferredDate: string;
+  timeSlot: TimeSlot;
+  estimatedFeeInr: number;
+  notes?: string;
+  status: MaintenanceStatus;
+  bookedAt: string;
 }
 
 export type ReferralUserStatus = 'Registered' | 'First Collection Verified';

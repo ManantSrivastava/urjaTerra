@@ -162,6 +162,7 @@ export interface Translations {
     tabCalc: string;
     tabSubsidies: string;
     tabEnquiries: string;
+    tabMaintenance: string;
     calcHeading: string;
     calcDesc: string;
   };
@@ -283,6 +284,37 @@ export interface Translations {
     simulateBtn: string;
     simulateSuccess: string;
     whatsappMessage: string;
+  };
+  solarMaintenance: {
+    title: string;
+    subtitle: string;
+    bookService: string;
+    viewBookings: string;
+    serviceTypeLabel: string;
+    systemCapacityLabel: string;
+    contactDetailsTitle: string;
+    nameLabel: string;
+    phoneLabel: string;
+    emailLabel: string;
+    addressLabel: string;
+    cityLabel: string;
+    dateLabel: string;
+    timeSlotLabel: string;
+    notesLabel: string;
+    notesPlaceholder: string;
+    submitBooking: string;
+    estimatedCost: string;
+    bookingSuccessTitle: string;
+    bookingSuccessMsg: string;
+    statusBooked: string;
+    statusAssigned: string;
+    statusCompleted: string;
+    statusCancelled: string;
+    emptyBookingsTitle: string;
+    emptyBookingsDesc: string;
+    cancelBooking: string;
+    technicianBadge: string;
+    bannerNotice: string;
   };
 }
 
@@ -520,6 +552,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       tabCalc: 'Solar Calculator',
       tabSubsidies: 'Subsidy Benchmarks',
       tabEnquiries: 'Saved Enquiries',
+      tabMaintenance: 'Panel Maintenance',
       calcHeading: 'Solar Calculator Inputs',
       calcDesc: 'Adjust your electricity parameters to calculate rooftop solar feasibility.',
     },
@@ -646,6 +679,37 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       simulateSuccess: 'Simulation complete! Referral created and verified with 100 GreenPoints awarded.',
       whatsappMessage:
         'Hey! Join me on urjaTerra to recycle recyclable waste at your doorstep and evaluate rooftop solar savings. Use my referral code {code} to get a 50 GreenPoints bonus on your first verified collection! Join here: {link}',
+    },
+    solarMaintenance: {
+      title: 'Solar Panel Maintenance & Servicing',
+      subtitle: 'Certified technician visits for panel de-soiling, inverter inspection, and preventative health audits.',
+      bookService: 'Book Maintenance Service',
+      viewBookings: 'My Maintenance Bookings',
+      serviceTypeLabel: 'Select Maintenance Service Package',
+      systemCapacityLabel: 'Approximate Rooftop Solar Capacity (kW)',
+      contactDetailsTitle: 'Service Location & Contact Details',
+      nameLabel: 'Full Name',
+      phoneLabel: 'Mobile Phone Number',
+      emailLabel: 'Email Address',
+      addressLabel: 'Rooftop Service Address',
+      cityLabel: 'City / Region',
+      dateLabel: 'Preferred Service Date',
+      timeSlotLabel: 'Preferred Arrival Window',
+      notesLabel: 'System Observations or Issues (Optional)',
+      notesPlaceholder: 'e.g. Dust buildup from nearby construction, low generation alert on app, water drainage blockage...',
+      submitBooking: 'Confirm & Schedule Maintenance',
+      estimatedCost: 'Estimated Service Fee',
+      bookingSuccessTitle: 'Maintenance Visit Scheduled!',
+      bookingSuccessMsg: 'A certified SolarSaathi technician has been booked. You will receive an arrival call prior to visit.',
+      statusBooked: 'Service Booked',
+      statusAssigned: 'Technician Dispatched',
+      statusCompleted: 'Servicing Completed',
+      statusCancelled: 'Booking Cancelled',
+      emptyBookingsTitle: 'No Solar Maintenance Bookings Yet',
+      emptyBookingsDesc: 'Keep your solar rooftop generating peak kilowatt-hours by scheduling an annual inspection or deep panel cleaning.',
+      cancelBooking: 'Cancel Booking',
+      technicianBadge: 'Certified SolarSaathi Field Engineer',
+      bannerNotice: 'Regular semi-annual cleaning and terminal inspection recovers 15% to 25% of energy generation lost to dust and electrical degradation.',
     },
   },
   Hi: {
@@ -881,6 +945,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       tabCalc: 'सोलर कैलकुलेटर',
       tabSubsidies: 'सब्सिडी मानदंड',
       tabEnquiries: 'सहेजे गए अनुरोध',
+      tabMaintenance: 'पैनल रखरखाव',
       calcHeading: 'सोलर कैलकुलेटर इनपुट',
       calcDesc: 'रूफटॉप सोलर क्षमता की गणना करने के लिए अपने बिजली मापदंडों को समायोजित करें।',
     },
@@ -1007,6 +1072,37 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       simulateSuccess: 'अनुकरण सफल! रेफरल सत्यापित हुआ और 100 ग्रीनपॉइंट्स जमा किए गए।',
       whatsappMessage:
         'नमस्ते! अपने घर पर सूखा कचरा रीसायकल करने और रूफटॉप सोलर बचत देखने के लिए urjaTerra से जुड़ें। अपने पहले सत्यापित संग्रह पर 50 ग्रीनपॉइंट्स बोनस पाने के लिए मेरे रेफरल कोड {code} का उपयोग करें! यहां जुड़ें: {link}',
+    },
+    solarMaintenance: {
+      title: 'सोलर पैनल रखरखाव एवं सर्विसिंग',
+      subtitle: 'पैनल की गहरी सफाई, इन्वर्टर स्वास्थ्य परीक्षण और नियमित तकनीकी ऑडिट के लिए प्रमाणित तकनीशियन बुक करें।',
+      bookService: 'रखरखाव सेवा बुक करें',
+      viewBookings: 'मेरी बुकिंग्स',
+      serviceTypeLabel: 'रखरखाव सेवा पैकेज चुनें',
+      systemCapacityLabel: 'अनुमानित रूफटॉप सोलर क्षमता (kW)',
+      contactDetailsTitle: 'सेवा स्थान एवं संपर्क विवरण',
+      nameLabel: 'पूरा नाम',
+      phoneLabel: 'मोबाइल नंबर',
+      emailLabel: 'ईमेल पता',
+      addressLabel: 'रूफटॉप सेवा का पता',
+      cityLabel: 'शहर / राज्य',
+      dateLabel: 'पसंदीदा सेवा तारीख',
+      timeSlotLabel: 'पसंदीदा आगमन समय',
+      notesLabel: 'सोलर सिस्टम संबंधी समस्या या निर्देश (वैकल्पिक)',
+      notesPlaceholder: 'उदा. निर्माण कार्य से जमी धूल, इन्वर्टर एरर कोड, पानी निकासी में रुकावट...',
+      submitBooking: 'रखरखाव सेवा सुनिश्चित करें',
+      estimatedCost: 'अनुमानित सेवा शुल्क',
+      bookingSuccessTitle: 'रखरखाव सेवा बुक हो गई!',
+      bookingSuccessMsg: 'सोलर साथी प्रमाणित फील्ड इंजीनियर को असाइन कर दिया गया है। आने से पूर्व आपको कॉल प्राप्त होगी।',
+      statusBooked: 'सेवा बुक की गई',
+      statusAssigned: 'तकनीशियन रवाना',
+      statusCompleted: 'सर्विसिंग पूर्ण',
+      statusCancelled: 'बुकिंग रद्द',
+      emptyBookingsTitle: 'कोई सक्रिय रखरखाव बुकिंग नहीं है',
+      emptyBookingsDesc: 'नियमित सफाई और निरीक्षण से सौर ऊर्जा उत्पादन 15% से 25% तक बढ़ जाता है। आज ही पहली सर्विसिंग शेड्यूल करें।',
+      cancelBooking: 'बुकिंग रद्द करें',
+      technicianBadge: 'सोलर साथी प्रमाणित फील्ड इंजीनियर',
+      bannerNotice: 'नियमित 6-मासिक सफाई और टर्मिनल जांच से धूल और इन्वर्टर गिरावट के कारण होने वाले 15% से 25% ऊर्जा नुकसान को ठीक किया जा सकता है।',
     },
   },
 };

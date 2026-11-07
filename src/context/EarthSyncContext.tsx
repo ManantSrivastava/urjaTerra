@@ -9,7 +9,9 @@ import {
   UserProfile, 
   WasteCategoryId,
   TimeSlot,
-  ReferralRecord 
+  ReferralRecord,
+  SolarMaintenanceBooking,
+  MaintenanceStatus
 } from '@/types';
 import { 
   WASTE_CATEGORIES,
@@ -37,6 +39,7 @@ interface EarthSyncContextType {
   setLanguage: (lang: Language) => void;
   t: Translations;
   referrals: ReferralRecord[];
+  maintenanceBookings: SolarMaintenanceBooking[];
   addReferral: (code: string, referredUserName: string, referredUserEmail: string) => { success: boolean; error?: string };
   simulateFriendReferral: (friendName?: string, friendEmail?: string) => void;
   simulateCompleteFirstCollection: (referralId: string) => void;
@@ -52,6 +55,10 @@ interface EarthSyncContextType {
   updatePickupStatus: (id: string, newStatus: PickupStatus, verifiedWeightKg?: number) => void;
   updateSolarEnquiryStatus: (id: string, newStatus: SolarEnquiry['status']) => void;
   submitSolarEnquiry: (data: Omit<SolarEnquiry, 'id' | 'submittedAt' | 'status'>) => { success: boolean; error?: string };
+  bookSolarMaintenance: (data: Omit<SolarMaintenanceBooking, 'id' | 'bookedAt' | 'status'>) => { success: boolean; error?: string };
+  cancelMaintenanceBooking: (id: string) => void;
+  updateMaintenanceStatus: (id: string, newStatus: MaintenanceStatus) => void;
+  deleteMaintenanceBooking: (id: string) => void;
   redeemReward: (rewardId: string) => { success: boolean; error?: string };
   dismissToast: (id: string) => void;
   showToast: (type: 'success' | 'info' | 'warning' | 'error', title: string, message: string) => void;
@@ -76,6 +83,7 @@ const STORAGE_KEYS = {
   REDEEMED: 'urjaterra_redeemed_v2',
   INITIALIZED: 'urjaterra_initialized_v2',
   REFERRALS: 'urjaterra_referrals_v2',
+  MAINTENANCE: 'urjaterra_solar_maintenance_v2',
 };
 
 const LEGACY_STORAGE_KEYS = {
@@ -86,6 +94,7 @@ const LEGACY_STORAGE_KEYS = {
   REDEEMED: 'earthsync_redeemed_v2',
   INITIALIZED: 'earthsync_initialized_v2',
   REFERRALS: 'earthsync_referrals_v2',
+  MAINTENANCE: 'earthsync_solar_maintenance_v2',
 };
 
 export const generateReferralCode = (seed?: string) => {
@@ -114,6 +123,7 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
   const [userProfile, setUserProfile] = useState<UserProfile>(DEFAULT_PROFILE);
   const [redeemedRewards, setRedeemedRewards] = useState<string[]>([]);
   const [referrals, setReferrals] = useState<ReferralRecord[]>([]);
+  const [maintenanceBookings, setMaintenanceBookings] = useState<SolarMaintenanceBooking[]>([]);
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [isHydrated, setIsHydrated] = useState(false);
 
@@ -149,6 +159,7 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(DEFAULT_PROFILE));
         localStorage.setItem(STORAGE_KEYS.REDEEMED, JSON.stringify([]));
         localStorage.setItem(STORAGE_KEYS.REFERRALS, JSON.stringify([]));
+        localStorage.setItem(STORAGE_KEYS.MAINTENANCE, JSON.stringify([]));
         localStorage.setItem(STORAGE_KEYS.INITIALIZED, 'true');
 
         setPickups([]);
@@ -157,6 +168,7 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
         setUserProfile(DEFAULT_PROFILE);
         setRedeemedRewards([]);
         setReferrals([]);
+        setMaintenanceBookings([]);
       } else {
         const storedPickups = localStorage.getItem(STORAGE_KEYS.PICKUPS) || localStorage.getItem(LEGACY_STORAGE_KEYS.PICKUPS);
         const storedEnquiries = localStorage.getItem(STORAGE_KEYS.ENQUIRIES) || localStorage.getItem(LEGACY_STORAGE_KEYS.ENQUIRIES);
@@ -164,6 +176,7 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
         const storedProfile = localStorage.getItem(STORAGE_KEYS.PROFILE) || localStorage.getItem(LEGACY_STORAGE_KEYS.PROFILE);
         const storedRedeemed = localStorage.getItem(STORAGE_KEYS.REDEEMED) || localStorage.getItem(LEGACY_STORAGE_KEYS.REDEEMED);
         const storedReferrals = localStorage.getItem(STORAGE_KEYS.REFERRALS) || localStorage.getItem(LEGACY_STORAGE_KEYS.REFERRALS);
+        const storedMaintenance = localStorage.getItem(STORAGE_KEYS.MAINTENANCE) || localStorage.getItem(LEGACY_STORAGE_KEYS.MAINTENANCE);
 
         if (storedPickups) setPickups(JSON.parse(storedPickups));
         if (storedEnquiries) setSolarEnquiries(JSON.parse(storedEnquiries));
@@ -178,6 +191,7 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
         }
         if (storedRedeemed) setRedeemedRewards(JSON.parse(storedRedeemed));
         if (storedReferrals) setReferrals(JSON.parse(storedReferrals));
+        if (storedMaintenance) setMaintenanceBookings(JSON.parse(storedMaintenance));
       }
     } catch (err) {
       console.warn('LocalStorage access warning in urjaTerraContext:', err);
@@ -186,6 +200,7 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
       setActivities([]);
       setUserProfile(DEFAULT_PROFILE);
       setReferrals([]);
+      setMaintenanceBookings([]);
     } finally {
       setIsHydrated(true);
     }
@@ -213,6 +228,15 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
     setSolarEnquiries(newEnquiries);
     try {
       localStorage.setItem(STORAGE_KEYS.ENQUIRIES, JSON.stringify(newEnquiries));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const saveMaintenance = (newBookings: SolarMaintenanceBooking[]) => {
+    setMaintenanceBookings(newBookings);
+    try {
+      localStorage.setItem(STORAGE_KEYS.MAINTENANCE, JSON.stringify(newBookings));
     } catch (e) {
       console.error(e);
     }
@@ -501,6 +525,105 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
     return { success: true };
   };
 
+  // Book Solar Maintenance
+  const bookSolarMaintenance = (data: Omit<SolarMaintenanceBooking, 'id' | 'bookedAt' | 'status'>) => {
+    if (!data.fullName || data.fullName.trim().length < 3) {
+      return { success: false, error: 'Please enter your full name.' };
+    }
+    if (!data.phone || data.phone.trim().length < 8) {
+      return { success: false, error: 'Please enter a valid phone number.' };
+    }
+    if (!data.serviceAddress || data.serviceAddress.trim().length < 5) {
+      return { success: false, error: 'Please enter a complete service address.' };
+    }
+    if (!data.preferredDate) {
+      return { success: false, error: 'Please select a preferred service date.' };
+    }
+
+    const newBooking: SolarMaintenanceBooking = {
+      ...data,
+      id: `maint-${Date.now()}`,
+      status: 'Booked',
+      bookedAt: new Date().toISOString(),
+    };
+
+    const updated = [newBooking, ...maintenanceBookings];
+    saveMaintenance(updated);
+
+    const activity: ActivityItem = {
+      id: `act-${Date.now()}`,
+      title: `Maintenance Booked: ${data.serviceType}`,
+      description: `Scheduled for ${data.preferredDate} (${data.timeSlot}) at ${data.city || 'your address'}.`,
+      timestamp: 'Just now',
+      type: 'solar_maintenance',
+    };
+    saveActivities([activity, ...activities]);
+
+    showToast(
+      'success',
+      'Maintenance Visit Booked!',
+      `Technician visit scheduled for ${data.preferredDate} (${data.timeSlot}). Reference: ${newBooking.id}`
+    );
+
+    return { success: true };
+  };
+
+  // Cancel Maintenance Booking
+  const cancelMaintenanceBooking = (id: string) => {
+    const target = maintenanceBookings.find((b) => b.id === id);
+    if (!target) return;
+
+    if (target.status === 'Completed') {
+      showToast('error', 'Cannot Cancel', 'This maintenance visit has already been completed.');
+      return;
+    }
+
+    const updated = maintenanceBookings.map((b) =>
+      b.id === id ? { ...b, status: 'Cancelled' as MaintenanceStatus } : b
+    );
+    saveMaintenance(updated);
+
+    const activity: ActivityItem = {
+      id: `act-${Date.now()}`,
+      title: `Maintenance Cancelled: ${target.serviceType}`,
+      description: `Cancelled visit for ${target.preferredDate}.`,
+      timestamp: 'Just now',
+      type: 'solar_maintenance',
+    };
+    saveActivities([activity, ...activities]);
+
+    showToast('info', 'Booking Cancelled', `Your service booking for ${target.serviceType} was cancelled.`);
+  };
+
+  // Update Maintenance Status (Admin / Simulation)
+  const updateMaintenanceStatus = (id: string, newStatus: MaintenanceStatus) => {
+    const target = maintenanceBookings.find((b) => b.id === id);
+    if (!target) return;
+
+    const updated = maintenanceBookings.map((b) =>
+      b.id === id ? { ...b, status: newStatus } : b
+    );
+    saveMaintenance(updated);
+
+    const activity: ActivityItem = {
+      id: `act-${Date.now()}`,
+      title: `Maintenance Status: ${newStatus}`,
+      description: `${target.serviceType} booking is now marked as ${newStatus}.`,
+      timestamp: 'Just now',
+      type: 'solar_maintenance',
+    };
+    saveActivities([activity, ...activities]);
+
+    showToast('info', 'Status Updated', `Booking for ${target.serviceType} marked as ${newStatus}.`);
+  };
+
+  // Delete / Archive Maintenance Booking (Admin)
+  const deleteMaintenanceBooking = (id: string) => {
+    const updated = maintenanceBookings.filter((b) => b.id !== id);
+    saveMaintenance(updated);
+    showToast('info', 'Record Removed', `Maintenance booking ${id} removed.`);
+  };
+
   // Redeem Reward
   const redeemReward = (rewardId: string) => {
     const reward = REWARD_ITEMS.find((r) => r.id === rewardId);
@@ -687,6 +810,7 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
     saveProfile(DEFAULT_PROFILE);
     saveRedeemed([]);
     saveReferrals([]);
+    saveMaintenance([]);
     showToast('info', 'Data Cleared', 'All stored user activity has been cleared.');
   };
 
@@ -721,6 +845,7 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
         setLanguage,
         t,
         referrals,
+        maintenanceBookings,
         addReferral,
         simulateFriendReferral,
         simulateCompleteFirstCollection,
@@ -729,6 +854,10 @@ export const EarthSyncProvider = ({ children }: { children: ReactNode }) => {
         updatePickupStatus,
         updateSolarEnquiryStatus,
         submitSolarEnquiry,
+        bookSolarMaintenance,
+        cancelMaintenanceBooking,
+        updateMaintenanceStatus,
+        deleteMaintenanceBooking,
         redeemReward,
         dismissToast,
         showToast,
