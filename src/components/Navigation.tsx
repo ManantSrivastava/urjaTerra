@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEarthSync } from '@/context/EarthSyncContext';
@@ -22,6 +22,38 @@ export const Navigation: React.FC = () => {
   const { userProfile, isHydrated, language, setLanguage, t } = useEarthSync();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const [currentHash, setCurrentHash] = useState('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setCurrentHash(window.location.hash);
+    }
+
+    const handleHashChange = () => {
+      setCurrentHash(window.location.hash);
+    };
+
+    const handleScroll = () => {
+      if (pathname === '/') {
+        const aboutElem = document.getElementById('about');
+        if (aboutElem) {
+          const rect = aboutElem.getBoundingClientRect();
+          if (rect.top <= 250 && rect.bottom >= 150) {
+            setCurrentHash('#about');
+          } else if (rect.top > 250 && window.scrollY < 300) {
+            setCurrentHash('');
+          }
+        }
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [pathname]);
 
   const isAdminPage = pathname === '/admin' || pathname.startsWith('/admin/');
 
@@ -46,7 +78,12 @@ export const Navigation: React.FC = () => {
   ];
 
   const isActive = (href: string) => {
-    if (href === '/') return pathname === '/';
+    if (href === '/#about') {
+      return pathname === '/' && currentHash === '#about';
+    }
+    if (href === '/') {
+      return pathname === '/' && currentHash !== '#about';
+    }
     if (href.startsWith('/#')) return false;
     return pathname.startsWith(href);
   };
@@ -110,6 +147,13 @@ export const Navigation: React.FC = () => {
                 <Link
                   key={link.name}
                   href={link.href}
+                  onClick={() => {
+                    if (link.href === '/#about') {
+                      setCurrentHash('#about');
+                    } else if (link.href === '/') {
+                      setCurrentHash('');
+                    }
+                  }}
                   className={`px-4 py-1.5 text-sm transition-all ${
                     active
                       ? 'text-accent-text bg-accent/15 font-semibold rounded-full shadow-2xs'
@@ -218,7 +262,14 @@ export const Navigation: React.FC = () => {
                   <Link
                     key={link.name}
                     href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      if (link.href === '/#about') {
+                        setCurrentHash('#about');
+                      } else if (link.href === '/') {
+                        setCurrentHash('');
+                      }
+                    }}
                     className={`px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
                       active
                         ? 'text-accent-text bg-accent/15 font-bold'
