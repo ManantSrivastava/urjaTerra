@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   /* Brand */
   --brand-forest: #063D2E;
@@ -139,4 +141,22 @@ body {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Hero Dark Mode Overlay: strictly active ONLY when .dark is on html */
+.hero-dark-overlay {
+  display: none !important;
+}
+
+html.dark .hero-dark-overlay,
+.dark .hero-dark-overlay {
+  display: block !important;
+}
+
+.hero-section-bg {
+  background-color: #F7F9F6;
+}
+html.dark .hero-section-bg,
+.dark .hero-section-bg {
+  background-color: #0D1914;
 }

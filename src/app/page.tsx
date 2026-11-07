@@ -25,7 +25,7 @@ export default function HomePage() {
       {/* =========================================================================
           HERO SECTION - Reference-faithful with 3D animated windmills
           ========================================================================= */}
-      <section className="relative w-full overflow-hidden bg-[#F7F9F6]">
+      <section className="relative w-full overflow-hidden hero-section-bg">
         {/* Main hero frame with continuous wide mountain panorama */}
         <div className="relative w-full max-w-[1536px] mx-auto min-h-[560px] sm:min-h-[620px] md:min-h-0 md:aspect-[1536/490]">
 
@@ -39,6 +39,10 @@ export default function HomePage() {
               draggable={false}
             />
           </picture>
+
+          {/* Dark Mode Gradient Overlay: Strictly visible ONLY in dark theme, never in light theme */}
+          <div className="hero-dark-overlay absolute inset-0 bg-gradient-to-b from-[#0D1914]/90 via-[#0D1914]/40 to-transparent pointer-events-none z-10" />
+          <div className="hero-dark-overlay absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0D1914] to-transparent pointer-events-none z-10" />
 
           {/* 2. Realistic 3D Animated Windmill Rotors */}
           {/* LEFT large foreground turbine — hub center at x=501 (32.62%), y=258 (52.65%) */}
@@ -158,13 +162,13 @@ export default function HomePage() {
 
             {/* Main Headline */}
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[60px] xl:text-[66px] font-extrabold tracking-tight leading-[1.08] mb-2 sm:mb-3">
-              <span className="text-[#0E2E20]">{t.hero.heading1}</span>
+              <span className="text-[#0E2E20] dark:text-[#F8FAF7]">{t.hero.heading1}</span>
               <br />
-              <span className="text-[#00A86B]">{t.hero.heading2}</span>
+              <span className="text-[#00A86B] dark:text-[#00B884]">{t.hero.heading2}</span>
             </h1>
 
             {/* Supporting Description */}
-            <p className="text-xs sm:text-sm md:text-[15px] text-[#52685C] leading-relaxed max-w-[440px] md:max-w-[480px] mx-auto mb-5 md:mb-6">
+            <p className="text-xs sm:text-sm md:text-[15px] text-[#52685C] dark:text-[#9FB0A6] leading-relaxed max-w-[440px] md:max-w-[480px] mx-auto mb-5 md:mb-6">
               {t.hero.description}
             </p>
 
@@ -199,10 +203,10 @@ export default function HomePage() {
           ========================================================================= */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#17231E] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#17231E] dark:text-[#F8FAF7] tracking-tight">
             {t.services.title}
           </h2>
-          <p className="text-sm text-[#65736B]">
+          <p className="text-sm text-[#65736B] dark:text-[#9FB0A6]">
             {t.services.badge}
           </p>
         </div>
@@ -210,28 +214,28 @@ export default function HomePage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           
           {/* Service Card 1: Smart Waste Management */}
-          <div className="bg-white rounded-lg border border-[#E2E9E3] p-8 flex flex-col justify-between hover:border-[#063D2E]/40 transition-colors">
+          <div className="bg-white dark:bg-[#13241D] rounded-lg border border-[#E2E9E3] dark:border-[#24382F] p-8 flex flex-col justify-between hover:border-[#063D2E]/40 dark:hover:border-[#00B884]/40 transition-colors shadow-xs">
             <div className="space-y-6">
               
               {/* Header & Visual */}
-              <div className="flex items-center justify-between pb-4 border-b border-[#E2E9E3]">
+              <div className="flex items-center justify-between pb-4 border-b border-[#E2E9E3] dark:border-[#24382F]">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-10 h-10 rounded-md bg-[#00B884]/10 border border-[#00B884]/20 flex items-center justify-center text-[#063D2E]">
+                  <div className="w-10 h-10 rounded-md bg-[#00B884]/10 border border-[#00B884]/20 flex items-center justify-center text-[#063D2E] dark:text-[#00B884]">
                     <Recycle className="w-5 h-5" />
                   </div>
                   <div>
                     <span className="text-xs font-semibold tracking-wider text-[#00B884] uppercase">01</span>
-                    <h3 className="text-xl font-bold text-[#17231E]">{t.services.wasteTitle}</h3>
+                    <h3 className="text-xl font-bold text-[#17231E] dark:text-[#F8FAF7]">{t.services.wasteTitle}</h3>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-[#E7F6EC] text-[#063D2E] border border-[#00B884]/20">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-[#E7F6EC] text-[#063D2E] dark:bg-[#00B884]/20 dark:text-[#00B884] border border-[#00B884]/20">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#00B884]" />
                   {t.services.wasteBadge}
                 </span>
               </div>
 
               {/* Description */}
-              <p className="text-sm text-[#4E5D54] leading-relaxed">
+              <p className="text-sm text-[#4E5D54] dark:text-[#9FB0A6] leading-relaxed">
                 {t.services.wasteDesc}
               </p>
 
@@ -242,7 +246,7 @@ export default function HomePage() {
                   t.services.wasteFeat2,
                   t.services.wasteFeat3,
                 ].map((feature, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs text-[#2D3E35]">
+                  <div key={idx} className="flex items-start gap-2.5 text-xs text-[#2D3E35] dark:text-[#DFE6E0]">
                     <CheckCircle2 className="w-4 h-4 text-[#00B884] shrink-0 mt-0.5" />
                     <span>{feature}</span>
                   </div>
@@ -251,10 +255,10 @@ export default function HomePage() {
             </div>
 
             {/* Action Footer */}
-            <div className="pt-6 mt-6 border-t border-[#E2E9E3] flex items-center justify-between">
+            <div className="pt-6 mt-6 border-t border-[#E2E9E3] dark:border-[#24382F] flex items-center justify-between">
               <Link 
                 href="/waste" 
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-[#063D2E] hover:bg-[#094D3B] text-white font-medium text-sm transition-colors shadow-2xs"
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-[#063D2E] hover:bg-[#094D3B] text-white dark:bg-[#00B884] dark:text-[#063D2E] font-medium text-sm transition-colors shadow-2xs"
               >
                 <span>{t.services.wasteBtn}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -263,28 +267,28 @@ export default function HomePage() {
           </div>
 
           {/* Service Card 2: SolarSaathi Rooftop Estimation */}
-          <div className="bg-white rounded-lg border border-[#E2E9E3] p-8 flex flex-col justify-between hover:border-[#063D2E]/40 transition-colors">
+          <div className="bg-white dark:bg-[#13241D] rounded-lg border border-[#E2E9E3] dark:border-[#24382F] p-8 flex flex-col justify-between hover:border-[#063D2E]/40 dark:hover:border-[#00B884]/40 transition-colors shadow-xs">
             <div className="space-y-6">
               
               {/* Header & Visual */}
-              <div className="flex items-center justify-between pb-4 border-b border-[#E2E9E3]">
+              <div className="flex items-center justify-between pb-4 border-b border-[#E2E9E3] dark:border-[#24382F]">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-10 h-10 rounded-md bg-[#00B884]/10 border border-[#00B884]/20 flex items-center justify-center text-[#063D2E]">
-                    <Sun className="w-5 h-5 text-[#063D2E]" />
+                  <div className="w-10 h-10 rounded-md bg-[#00B884]/10 border border-[#00B884]/20 flex items-center justify-center text-[#063D2E] dark:text-[#00B884]">
+                    <Sun className="w-5 h-5 text-[#063D2E] dark:text-[#00B884]" />
                   </div>
                   <div>
                     <span className="text-xs font-semibold tracking-wider text-[#00B884] uppercase">02</span>
-                    <h3 className="text-xl font-bold text-[#17231E]">{t.services.solarTitle}</h3>
+                    <h3 className="text-xl font-bold text-[#17231E] dark:text-[#F8FAF7]">{t.services.solarTitle}</h3>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-[#E7F6EC] text-[#063D2E] border border-[#00B884]/20">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-[#E7F6EC] text-[#063D2E] dark:bg-[#00B884]/20 dark:text-[#00B884] border border-[#00B884]/20">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#00B884]" />
                   {t.services.solarBadge}
                 </span>
               </div>
 
               {/* Description */}
-              <p className="text-sm text-[#4E5D54] leading-relaxed">
+              <p className="text-sm text-[#4E5D54] dark:text-[#9FB0A6] leading-relaxed">
                 {t.services.solarDesc}
               </p>
 
@@ -295,7 +299,7 @@ export default function HomePage() {
                   t.services.solarFeat2,
                   t.services.solarFeat3,
                 ].map((feature, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs text-[#2D3E35]">
+                  <div key={idx} className="flex items-start gap-2.5 text-xs text-[#2D3E35] dark:text-[#DFE6E0]">
                     <CheckCircle2 className="w-4 h-4 text-[#00B884] shrink-0 mt-0.5" />
                     <span>{feature}</span>
                   </div>
@@ -304,10 +308,10 @@ export default function HomePage() {
             </div>
 
             {/* Action Footer */}
-            <div className="pt-6 mt-6 border-t border-[#E2E9E3] flex items-center justify-between">
+            <div className="pt-6 mt-6 border-t border-[#E2E9E3] dark:border-[#24382F] flex items-center justify-between">
               <Link 
                 href="/solar" 
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-[#063D2E] hover:bg-[#094D3B] text-white font-medium text-sm transition-colors shadow-2xs"
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-md bg-[#063D2E] hover:bg-[#094D3B] text-white dark:bg-[#00B884] dark:text-[#063D2E] font-medium text-sm transition-colors shadow-2xs"
               >
                 <span>{t.services.solarBtn}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -321,23 +325,23 @@ export default function HomePage() {
       {/* =========================================================================
           PLATFORM CAPABILITIES & STANDARDS
           ========================================================================= */}
-      <section className="bg-white border-y border-[#E2E9E3] py-12 px-4 sm:px-6 lg:px-8">
+      <section className="bg-surface border-y border-border py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
-            <div className="text-3xl lg:text-4xl font-bold text-[#063D2E]">{t.stats.stat1Val}</div>
-            <div className="text-xs sm:text-sm text-[#4E5D54] mt-1 font-medium">{t.stats.stat1Label}</div>
+            <div className="text-3xl lg:text-4xl font-bold text-accent">{t.stats.stat1Val}</div>
+            <div className="text-xs sm:text-sm text-muted mt-1 font-medium">{t.stats.stat1Label}</div>
           </div>
           <div>
-            <div className="text-3xl lg:text-4xl font-bold text-[#063D2E]">{t.stats.stat2Val}</div>
-            <div className="text-xs sm:text-sm text-[#4E5D54] mt-1 font-medium">{t.stats.stat2Label}</div>
+            <div className="text-3xl lg:text-4xl font-bold text-accent">{t.stats.stat2Val}</div>
+            <div className="text-xs sm:text-sm text-muted mt-1 font-medium">{t.stats.stat2Label}</div>
           </div>
           <div>
-            <div className="text-3xl lg:text-4xl font-bold text-[#063D2E]">{t.stats.stat3Val}</div>
-            <div className="text-xs sm:text-sm text-[#4E5D54] mt-1 font-medium">{t.stats.stat3Label}</div>
+            <div className="text-3xl lg:text-4xl font-bold text-accent">{t.stats.stat3Val}</div>
+            <div className="text-xs sm:text-sm text-muted mt-1 font-medium">{t.stats.stat3Label}</div>
           </div>
           <div>
-            <div className="text-3xl lg:text-4xl font-bold text-[#063D2E]">{t.stats.stat4Val}</div>
-            <div className="text-xs sm:text-sm text-[#4E5D54] mt-1 font-medium">{t.stats.stat4Label}</div>
+            <div className="text-3xl lg:text-4xl font-bold text-accent">{t.stats.stat4Val}</div>
+            <div className="text-xs sm:text-sm text-muted mt-1 font-medium">{t.stats.stat4Label}</div>
           </div>
         </div>
       </section>
@@ -347,10 +351,10 @@ export default function HomePage() {
           ========================================================================= */}
       <section id="about" className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-12">
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#17231E] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
             {t.howItWorks.title}
           </h2>
-          <p className="text-sm text-[#65736B]">
+          <p className="text-sm text-muted">
             {t.howItWorks.subtitle}
           </p>
         </div>
@@ -358,34 +362,34 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           
           {/* Step 1 */}
-          <div className="bg-white rounded-lg border border-[#E2E9E3] p-6 space-y-3 relative">
-            <div className="w-8 h-8 rounded-full bg-[#063D2E] text-white flex items-center justify-center font-bold text-sm">
+          <div className="bg-surface rounded-xl border border-border p-6 space-y-3 relative shadow-xs">
+            <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
               1
             </div>
-            <h3 className="text-base font-semibold text-[#17231E]">{t.howItWorks.step1Title}</h3>
-            <p className="text-xs sm:text-sm text-[#4E5D54] leading-relaxed">
+            <h3 className="text-base font-semibold text-foreground">{t.howItWorks.step1Title}</h3>
+            <p className="text-xs sm:text-sm text-muted leading-relaxed">
               {t.howItWorks.step1Desc}
             </p>
           </div>
 
           {/* Step 2 */}
-          <div className="bg-white rounded-lg border border-[#E2E9E3] p-6 space-y-3 relative">
-            <div className="w-8 h-8 rounded-full bg-[#063D2E] text-white flex items-center justify-center font-bold text-sm">
+          <div className="bg-surface rounded-xl border border-border p-6 space-y-3 relative shadow-xs">
+            <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
               2
             </div>
-            <h3 className="text-base font-semibold text-[#17231E]">{t.howItWorks.step2Title}</h3>
-            <p className="text-xs sm:text-sm text-[#4E5D54] leading-relaxed">
+            <h3 className="text-base font-semibold text-foreground">{t.howItWorks.step2Title}</h3>
+            <p className="text-xs sm:text-sm text-muted leading-relaxed">
               {t.howItWorks.step2Desc}
             </p>
           </div>
 
           {/* Step 3 */}
-          <div className="bg-white rounded-lg border border-[#E2E9E3] p-6 space-y-3 relative">
-            <div className="w-8 h-8 rounded-full bg-[#063D2E] text-white flex items-center justify-center font-bold text-sm">
+          <div className="bg-surface rounded-xl border border-border p-6 space-y-3 relative shadow-xs">
+            <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
               3
             </div>
-            <h3 className="text-base font-semibold text-[#17231E]">{t.howItWorks.step3Title}</h3>
-            <p className="text-xs sm:text-sm text-[#4E5D54] leading-relaxed">
+            <h3 className="text-base font-semibold text-foreground">{t.howItWorks.step3Title}</h3>
+            <p className="text-xs sm:text-sm text-muted leading-relaxed">
               {t.howItWorks.step3Desc}
             </p>
           </div>
@@ -395,16 +399,16 @@ export default function HomePage() {
         {/* =========================================================================
             GREENPOINTS BENEFITS & REWARDS CATALOG
             ========================================================================= */}
-        <div className="pt-6 sm:pt-10 space-y-8 border-t border-[#E2E9E3]">
+        <div className="pt-6 sm:pt-10 space-y-8 border-t border-border">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-[#063D2E] border border-emerald-200">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-accent/10 text-accent-text border border-accent/20">
+              <Sparkles className="w-3.5 h-3.5 text-highlight" />
               <span>{t.benefits.badge}</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-[#17231E] tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
               {t.benefits.title}
             </h3>
-            <p className="text-sm text-[#65736B]">
+            <p className="text-sm text-muted">
               {t.benefits.subtitle}
             </p>
           </div>
@@ -419,46 +423,46 @@ export default function HomePage() {
               return (
                 <div
                   key={item.id}
-                  className="bg-white rounded-2xl border border-[#E2E9E3] p-5 shadow-xs hover:shadow-md hover:border-emerald-300 transition-all flex flex-col justify-between"
+                  className="bg-surface rounded-2xl border border-border p-5 shadow-xs hover:shadow-md hover:border-accent/40 transition-all flex flex-col justify-between"
                 >
                   <div className="space-y-3">
                     {/* Top Badges: Category & Points Cost */}
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-accent/10 text-accent-text border border-accent/20">
                         {rewardBadge}
                       </span>
-                      <div className="flex items-center gap-1 text-xs font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-md border border-amber-200">
-                        <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                      <div className="flex items-center gap-1 text-xs font-bold text-highlight-foreground bg-highlight/15 px-2.5 py-0.5 rounded-md border border-highlight/30">
+                        <Sparkles className="w-3.5 h-3.5 text-highlight" />
                         <span>{item.pointsCost} {t.nav.pts}</span>
                       </div>
                     </div>
 
                     {/* Title & Description */}
                     <div>
-                      <h4 className="font-bold text-[#17231E] text-sm sm:text-base leading-snug">
+                      <h4 className="font-bold text-foreground text-sm sm:text-base leading-snug">
                         {rewardTitle}
                       </h4>
-                      <p className="text-xs text-[#4E5D54] mt-1.5 leading-relaxed">
+                      <p className="text-xs text-muted mt-1.5 leading-relaxed">
                         {rewardDesc}
                       </p>
                     </div>
 
                     {/* Partner Reference */}
-                    <div className="flex items-center gap-1.5 text-[11px] text-[#65736B] pt-1">
-                      <Tag className="w-3 h-3 text-emerald-600 shrink-0" />
+                    <div className="flex items-center gap-1.5 text-[11px] text-muted pt-1">
+                      <Tag className="w-3 h-3 text-accent shrink-0" />
                       <span>
-                        {t.benefits.partner}: <strong className="text-[#17231E] font-semibold">{item.partner}</strong>
+                        {t.benefits.partner}: <strong className="text-foreground font-semibold">{item.partner}</strong>
                       </span>
                     </div>
                   </div>
 
                   {/* Bottom Requirement / CTA Link */}
-                  <div className="mt-4 pt-3 border-t border-[#E2E9E3]/70">
+                  <div className="mt-4 pt-3 border-t border-border">
                     <Link
                       href="/waste"
-                      className="w-full py-2 px-3 rounded-lg bg-[#F8FAF7] hover:bg-emerald-50 text-[#65736B] hover:text-[#063D2E] text-xs font-semibold border border-[#E2E9E3] transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="w-full py-2 px-3 rounded-lg bg-background hover:bg-accent/10 text-muted hover:text-accent-text text-xs font-semibold border border-border transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                     >
-                      <Gift className="w-3.5 h-3.5 text-[#65736B]" />
+                      <Gift className="w-3.5 h-3.5 text-muted" />
                       <span>{t.benefits.needsMorePts.replace('{pts}', item.pointsCost.toString())}</span>
                     </Link>
                   </div>
@@ -473,34 +477,34 @@ export default function HomePage() {
           PLATFORM ARCHITECTURE & ACADEMIC HIGHLIGHTS
           ========================================================================= */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <div className="bg-[#F8FAF7] rounded-xl border border-[#E2E9E3] p-8 sm:p-10">
+        <div className="bg-surface rounded-xl border border-border p-8 sm:p-10 shadow-xs">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-[#00B884]/15 text-[#063D2E]">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#00B884]" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-accent/15 text-accent-text">
+              <ShieldCheck className="w-3.5 h-3.5 text-accent" />
               {t.framework.badge}
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#17231E] tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
               {t.framework.title}
             </h2>
 
-            <p className="text-sm text-[#4E5D54] leading-relaxed">
+            <p className="text-sm text-muted leading-relaxed">
               {t.framework.desc}
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="flex items-center gap-3 p-3.5 rounded-lg bg-white border border-[#E2E9E3]">
-                <Layers className="w-5 h-5 text-[#00B884] shrink-0" />
+              <div className="flex items-center gap-3 p-3.5 rounded-lg bg-background border border-border">
+                <Layers className="w-5 h-5 text-accent shrink-0" />
                 <div className="text-xs">
-                  <div className="font-semibold text-[#17231E]">{t.framework.feat1Title}</div>
-                  <div className="text-[#65736B]">{t.framework.feat1Desc}</div>
+                  <div className="font-semibold text-foreground">{t.framework.feat1Title}</div>
+                  <div className="text-muted">{t.framework.feat1Desc}</div>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3.5 rounded-lg bg-white border border-[#E2E9E3]">
-                <Sun className="w-5 h-5 text-[#00B884] shrink-0" />
+              <div className="flex items-center gap-3 p-3.5 rounded-lg bg-background border border-border">
+                <Sun className="w-5 h-5 text-accent shrink-0" />
                 <div className="text-xs">
-                  <div className="font-semibold text-[#17231E]">{t.framework.feat2Title}</div>
-                  <div className="text-[#65736B]">{t.framework.feat2Desc}</div>
+                  <div className="font-semibold text-foreground">{t.framework.feat2Title}</div>
+                  <div className="text-muted">{t.framework.feat2Desc}</div>
                 </div>
               </div>
             </div>

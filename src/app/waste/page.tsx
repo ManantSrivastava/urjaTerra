@@ -233,8 +233,8 @@ export default function SmartWastePage() {
             </div>
 
             {/* Material Guidelines */}
-            <div className="bg-[#F8FAF7] rounded-lg border border-[#E2E9E3] p-5 space-y-2 text-xs text-[#65736B]">
-              <h4 className="font-bold text-[#17231E] text-xs">{t.wasteSidebar.sortingChecklist}</h4>
+            <div className="bg-surface rounded-xl border border-border p-5 space-y-2 text-xs text-muted">
+              <h4 className="font-bold text-foreground text-xs">{t.wasteSidebar.sortingChecklist}</h4>
               <ul className="space-y-1.5 list-disc pl-4 leading-relaxed">
                 <li>{t.wasteSidebar.check1}</li>
                 <li>{t.wasteSidebar.check2}</li>

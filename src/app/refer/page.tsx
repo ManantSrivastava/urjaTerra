@@ -117,13 +117,13 @@ export default function ReferAndEarnPage() {
       </section>
 
       {/* Main Action Hub: Referral Code Box & Sharing */}
-      <section className="bg-white rounded-xl border border-[#E2E9E3] p-6 sm:p-8 shadow-xs space-y-6">
+      <section className="bg-surface rounded-xl border border-border p-6 sm:p-8 shadow-xs space-y-6">
         <div>
-          <h2 className="text-lg sm:text-xl font-bold text-[#17231E] flex items-center gap-2">
-            <Share2 className="w-5 h-5 text-[#00B884]" />
+          <h2 className="text-lg sm:text-xl font-bold text-foreground flex items-center gap-2">
+            <Share2 className="w-5 h-5 text-accent" />
             <span>{t.refer.codeCardTitle}</span>
           </h2>
-          <p className="text-xs sm:text-sm text-[#65736B] mt-1">
+          <p className="text-xs sm:text-sm text-muted mt-1">
             {t.refer.codeCardDesc}
           </p>
         </div>
@@ -131,22 +131,22 @@ export default function ReferAndEarnPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           
           {/* Unique Referral Code Display */}
-          <div className="lg:col-span-5 bg-[#F8FAF7] border border-[#E2E9E3] rounded-xl p-5 flex flex-col justify-between space-y-4">
+          <div className="lg:col-span-5 bg-background border border-border rounded-xl p-5 flex flex-col justify-between space-y-4">
             <div>
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-[#65736B] block mb-1">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-muted block mb-1">
                 {language === 'Hi' ? 'आपका रेफरल कोड' : 'Your Referral Code'}
               </span>
-              <div className="flex items-center justify-between gap-3 bg-white border border-[#D5E0D7] rounded-lg px-4 py-3 shadow-2xs">
-                <span className="font-mono text-xl sm:text-2xl font-bold tracking-wider text-[#063D2E]">
+              <div className="flex items-center justify-between gap-3 bg-surface border border-border rounded-lg px-4 py-3 shadow-2xs">
+                <span className="font-mono text-xl sm:text-2xl font-bold tracking-wider text-foreground">
                   {referralCode}
                 </span>
                 <button
                   onClick={handleCopyCode}
-                  className="px-3 py-1.5 rounded-md bg-[#063D2E] hover:bg-[#094736] text-white text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs shrink-0"
+                  className="px-3 py-1.5 rounded-md bg-primary hover:opacity-95 text-primary-foreground text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs shrink-0"
                 >
                   {copiedCode ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-[#00B884]" />
+                      <Check className="w-3.5 h-3.5 text-accent" />
                       <span>{t.refer.copiedCode}</span>
                     </>
                   ) : (
@@ -159,8 +159,8 @@ export default function ReferAndEarnPage() {
               </div>
             </div>
 
-            <div className="text-[11px] text-[#65736B] flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-[#00B884] shrink-0" />
+            <div className="text-[11px] text-muted flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-accent shrink-0" />
               <span>
                 {language === 'Hi'
                   ? 'अंक केवल मित्र के पहले कचरा पिकअप सत्यापन पर जमा होंगे।'
@@ -170,22 +170,22 @@ export default function ReferAndEarnPage() {
           </div>
 
           {/* Referral Link & Social Sharing */}
-          <div className="lg:col-span-7 bg-[#F8FAF7] border border-[#E2E9E3] rounded-xl p-5 flex flex-col justify-between space-y-4">
+          <div className="lg:col-span-7 bg-background border border-border rounded-xl p-5 flex flex-col justify-between space-y-4">
             <div>
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-[#65736B] block mb-1">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-muted block mb-1">
                 {language === 'Hi' ? 'सीधा आमंत्रण वेब लिंक' : 'Direct Invitation Web Link'}
               </span>
-              <div className="flex items-center gap-2 bg-white border border-[#D5E0D7] rounded-lg px-3 py-2 text-xs text-[#17231E] overflow-hidden">
-                <span className="truncate font-mono select-all flex-1 text-stone-700">
+              <div className="flex items-center gap-2 bg-surface border border-border rounded-lg px-3 py-2 text-xs text-foreground overflow-hidden">
+                <span className="truncate font-mono select-all flex-1 text-muted">
                   {referralLink}
                 </span>
                 <button
                   onClick={handleCopyLink}
-                  className="px-3 py-1.5 rounded-md bg-stone-100 hover:bg-stone-200 border border-stone-300 text-stone-800 text-xs font-semibold transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+                  className="px-3 py-1.5 rounded-md bg-foreground/5 hover:bg-foreground/10 border border-border text-foreground text-xs font-semibold transition-colors flex items-center gap-1 cursor-pointer shrink-0"
                 >
                   {copiedLink ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-emerald-700" />
+                      <Check className="w-3.5 h-3.5 text-accent" />
                       <span>{t.refer.copiedLink}</span>
                     </>
                   ) : (
@@ -313,52 +313,52 @@ export default function ReferAndEarnPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
           
           {/* Step 1 */}
-          <div className="bg-[#F8FAF7] border border-[#E2E9E3] rounded-xl p-5 space-y-3 relative">
-            <div className="w-9 h-9 rounded-lg bg-[#063D2E] text-white flex items-center justify-center font-bold text-sm shadow-xs">
+          <div className="bg-background border border-border rounded-xl p-5 space-y-3 relative">
+            <div className="w-9 h-9 rounded-lg bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm shadow-xs">
               1
             </div>
-            <h3 className="font-bold text-sm text-[#17231E]">
+            <h3 className="font-bold text-sm text-foreground">
               {t.refer.step1Title}
             </h3>
-            <p className="text-xs text-[#65736B] leading-relaxed">
+            <p className="text-xs text-muted leading-relaxed">
               {t.refer.step1Desc}
             </p>
-            <div className="pt-1 text-[11px] font-semibold text-[#00A86B] flex items-center gap-1">
+            <div className="pt-1 text-[11px] font-semibold text-accent flex items-center gap-1">
               <Share2 className="w-3.5 h-3.5" />
               <span>{language === 'Hi' ? 'व्हाट्सएप या लिंक से भेजें' : 'Share code or direct link'}</span>
             </div>
           </div>
 
           {/* Step 2 */}
-          <div className="bg-[#F8FAF7] border border-[#E2E9E3] rounded-xl p-5 space-y-3 relative">
-            <div className="w-9 h-9 rounded-lg bg-[#00B884] text-[#063D2E] flex items-center justify-center font-bold text-sm shadow-xs">
+          <div className="bg-background border border-border rounded-xl p-5 space-y-3 relative">
+            <div className="w-9 h-9 rounded-lg bg-accent text-primary-foreground flex items-center justify-center font-bold text-sm shadow-xs">
               2
             </div>
-            <h3 className="font-bold text-sm text-[#17231E]">
+            <h3 className="font-bold text-sm text-foreground">
               {t.refer.step2Title}
             </h3>
-            <p className="text-xs text-[#65736B] leading-relaxed">
+            <p className="text-xs text-muted leading-relaxed">
               {t.refer.step2Desc}
             </p>
-            <div className="pt-1 text-[11px] font-semibold text-[#063D2E] flex items-center gap-1">
-              <Recycle className="w-3.5 h-3.5 text-[#00B884]" />
+            <div className="pt-1 text-[11px] font-semibold text-accent flex items-center gap-1">
+              <Recycle className="w-3.5 h-3.5 text-accent" />
               <span>{language === 'Hi' ? 'डिजिटल तराजू सत्यापन आवश्यक' : 'Verified digital scale collection'}</span>
             </div>
           </div>
 
           {/* Step 3 */}
-          <div className="bg-[#F8FAF7] border border-[#E2E9E3] rounded-xl p-5 space-y-3 relative">
-            <div className="w-9 h-9 rounded-lg bg-[#FFB800] text-[#063D2E] flex items-center justify-center font-bold text-sm shadow-xs">
+          <div className="bg-background border border-border rounded-xl p-5 space-y-3 relative">
+            <div className="w-9 h-9 rounded-lg bg-highlight text-highlight-foreground flex items-center justify-center font-bold text-sm shadow-xs">
               3
             </div>
-            <h3 className="font-bold text-sm text-[#17231E]">
+            <h3 className="font-bold text-sm text-foreground">
               {t.refer.step3Title}
             </h3>
-            <p className="text-xs text-[#65736B] leading-relaxed">
+            <p className="text-xs text-muted leading-relaxed">
               {t.refer.step3Desc}
             </p>
-            <div className="pt-1 text-[11px] font-semibold text-amber-700 flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-[#FFB800]" />
+            <div className="pt-1 text-[11px] font-semibold text-highlight flex items-center gap-1">
+              <Sparkles className="w-3.5 h-3.5 text-highlight" />
               <span>{language === 'Hi' ? '+100 अंक आपको • +50 अंक मित्र को' : '+100 pts for you • +50 pts for friend'}</span>
             </div>
           </div>
@@ -367,11 +367,11 @@ export default function ReferAndEarnPage() {
       </section>
 
       {/* Referral History Table */}
-      <section className="bg-white rounded-xl border border-[#E2E9E3] p-6 sm:p-8 shadow-xs space-y-5">
+      <section className="bg-surface rounded-xl border border-border p-6 sm:p-8 shadow-xs space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h2 className="text-lg sm:text-xl font-bold text-[#17231E] flex items-center gap-2">
-              <Clock className="w-5 h-5 text-[#063D2E]" />
+            <h2 className="text-lg sm:text-xl font-bold text-foreground flex items-center gap-2">
+              <Clock className="w-5 h-5 text-accent" />
               <span>{t.refer.tableTitle}</span>
             </h2>
             <p className="text-xs sm:text-sm text-[#65736B] mt-0.5">
@@ -382,30 +382,30 @@ export default function ReferAndEarnPage() {
           {/* Simulation testing tool button for demo evaluation */}
           <button
             onClick={() => simulateFriendReferral()}
-            className="px-3.5 py-2 rounded-lg bg-[#F8FAF7] hover:bg-[#E2E9E3] border border-[#D5E0D7] text-[#063D2E] text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs self-start sm:self-auto"
+            className="px-3.5 py-2 rounded-lg bg-surface hover:bg-surface/80 border border-border text-foreground text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs self-start sm:self-auto"
             title="Simulate a new referee signing up with your referral code"
           >
-            <PlusCircle className="w-3.5 h-3.5 text-[#00B884]" />
+            <PlusCircle className="w-3.5 h-3.5 text-accent" />
             <span>{language === 'Hi' ? '+ टेस्ट मित्र आमंत्रित करें' : '+ Simulate Friend Registration'}</span>
           </button>
         </div>
 
         {/* Table / Empty State */}
         {referrals.length === 0 ? (
-          <div className="border border-dashed border-[#D5E0D7] rounded-xl p-8 text-center bg-[#F8FAF7]/50 space-y-3">
-            <div className="w-12 h-12 rounded-full bg-emerald-50 text-[#00B884] flex items-center justify-center mx-auto border border-emerald-100">
-              <Users className="w-6 h-6 text-[#00B884]" />
+          <div className="border border-dashed border-border rounded-xl p-8 text-center bg-background/50 space-y-3">
+            <div className="w-12 h-12 rounded-full bg-accent/10 text-accent flex items-center justify-center mx-auto border border-accent/20">
+              <Users className="w-6 h-6 text-accent" />
             </div>
-            <h3 className="text-sm font-bold text-[#17231E]">
+            <h3 className="text-sm font-bold text-foreground">
               {language === 'Hi' ? 'कोई रेफरल रिकॉर्ड नहीं मिला' : 'No Referrals Logged Yet'}
             </h3>
-            <p className="text-xs text-[#65736B] max-w-md mx-auto leading-relaxed">
+            <p className="text-xs text-muted max-w-md mx-auto leading-relaxed">
               {t.refer.emptyHistory}
             </p>
             <div className="pt-2">
               <button
                 onClick={() => simulateFriendReferral()}
-                className="px-4 py-2 rounded-lg bg-[#063D2E] hover:bg-[#094736] text-white text-xs font-semibold transition-colors inline-flex items-center gap-2 cursor-pointer shadow-xs"
+                className="px-4 py-2 rounded-lg bg-primary hover:opacity-95 text-primary-foreground text-xs font-semibold transition-colors inline-flex items-center gap-2 cursor-pointer shadow-xs"
               >
                 <PlusCircle className="w-3.5 h-3.5" />
                 <span>{language === 'Hi' ? 'पहला टेस्ट रेफरल जोड़ें' : 'Simulate First Referee'}</span>
@@ -413,9 +413,9 @@ export default function ReferAndEarnPage() {
             </div>
           </div>
         ) : (
-          <div className="overflow-x-auto border border-[#E2E9E3] rounded-lg">
-            <table className="w-full text-left text-xs text-[#17231E] border-collapse">
-              <thead className="bg-[#F8FAF7] text-[11px] font-semibold text-[#65736B] uppercase tracking-wider border-b border-[#E2E9E3]">
+          <div className="overflow-x-auto border border-border rounded-lg">
+            <table className="w-full text-left text-xs text-foreground border-collapse">
+              <thead className="bg-background text-[11px] font-semibold text-muted uppercase tracking-wider border-b border-border">
                 <tr>
                   <th className="py-3 px-4">{t.refer.colDate}</th>
                   <th className="py-3 px-4">{t.refer.colFriend}</th>
@@ -425,7 +425,7 @@ export default function ReferAndEarnPage() {
                   <th className="py-3 px-4 text-center">{language === 'Hi' ? 'डेमो क्रिया' : 'Demo Action'}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E2E9E3]">
+              <tbody className="divide-y divide-border">
                 {referrals.map((item) => {
                   const isRewarded = item.rewardStatus === 'Rewarded';
                   const formattedDate = new Date(item.date).toLocaleDateString(
@@ -434,13 +434,13 @@ export default function ReferAndEarnPage() {
                   );
 
                   return (
-                    <tr key={item.id} className="hover:bg-[#F8FAF7]/60 transition-colors">
-                      <td className="py-3 px-4 font-mono text-stone-600 whitespace-nowrap">
+                    <tr key={item.id} className="hover:bg-foreground/5 transition-colors">
+                      <td className="py-3 px-4 font-mono text-muted whitespace-nowrap">
                         {formattedDate}
                       </td>
                       <td className="py-3 px-4">
-                        <div className="font-semibold text-[#17231E]">{item.referredUserName}</div>
-                        <div className="text-[11px] text-[#65736B] font-mono">{item.referredUserEmail}</div>
+                        <div className="font-semibold text-foreground">{item.referredUserName}</div>
+                        <div className="text-[11px] text-muted font-mono">{item.referredUserEmail}</div>
                       </td>
                       <td className="py-3 px-4 whitespace-nowrap">
                         {item.userStatus === 'First Collection Verified' ? (
